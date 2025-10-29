@@ -241,6 +241,76 @@ async def list_data_files():
         raise HTTPException(status_code=500, detail=str(e))
 
 
+@app.get("/api/file-preview")
+async def preview_file(path: str):
+    """Get preview content of a file"""
+    try:
+        file_path = Path(__file__).parent / path
+        
+        if not file_path.exists():
+            raise HTTPException(status_code=404, detail="File not found")
+        
+        # Check if file is in the data directory (security check)
+        if not str(file_path.resolve()).startswith(str(DATA_DIR.resolve())):
+            raise HTTPException(status_code=403, detail="Access denied")
+        
+        # Handle different file types
+        file_ext = file_path.suffix.lower()
+        
+        if file_ext == '.pdf':
+            # For PDF files, return the path for direct viewing
+            return {
+                "success": True,
+                "type": "pdf",
+                "path": f"/{path}",
+                "filename": file_path.name,
+                "size": file_path.stat().st_size
+            }
+        else:
+            # For text files, read and return content
+            try:
+                with open(file_path, "r", encoding="utf-8") as f:
+                    content = f.read()
+                    # Limit preview to first 5000 characters
+                    if len(content) > 5000:
+                        content = content[:5000] + "\n\n... [Content truncated for preview]"
+                    return {
+                        "success": True,
+                        "type": "text",
+                        "content": content
+                    }
+            except UnicodeDecodeError:
+                # If file is not text, return error
+                return {
+                    "success": False,
+                    "error": "This file type cannot be previewed. Use 'Process Workflow' to analyze it."
+                }
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/data/{filename}")
+async def serve_data_file(filename: str):
+    """Serve files from the data directory"""
+    try:
+        file_path = DATA_DIR / filename
+        
+        if not file_path.exists():
+            raise HTTPException(status_code=404, detail="File not found")
+        
+        # Security check
+        if not str(file_path.resolve()).startswith(str(DATA_DIR.resolve())):
+            raise HTTPException(status_code=403, detail="Access denied")
+        
+        return FileResponse(file_path)
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 @app.post("/api/upload")
 async def upload_file(file: UploadFile = File(...)):
     """Handle file uploads"""

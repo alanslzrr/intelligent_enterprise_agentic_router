@@ -480,6 +480,7 @@ a:hover {
   margin-bottom: 0.75rem;
   cursor: pointer;
   transition: all 0.2s ease;
+  position: relative;
 }
 
 .file-item:hover {
@@ -488,8 +489,32 @@ a:hover {
 }
 
 .file-item.selected {
-  background: var(--primary / 0.1);
+  background: hsl(var(--primary) / 0.1);
   border-color: var(--primary);
+  border-width: 2px;
+  box-shadow: 0 0 0 3px hsl(var(--primary) / 0.1);
+}
+
+.dark .file-item.selected {
+  background: hsl(221 97% 58% / 0.15);
+  box-shadow: 0 0 0 3px hsl(221 97% 58% / 0.15);
+}
+
+.file-item.selected::before {
+  content: '✓';
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  width: 24px;
+  height: 24px;
+  background: var(--primary);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: bold;
 }
 
 .loading {
@@ -1233,6 +1258,281 @@ a:hover {
   .step-metrics {
     flex-direction: column;
     gap: 0.75rem;
+  }
+}
+
+/* =====================================================
+   File Browser Enhancements
+   ===================================================== */
+
+.file-item {
+  position: relative;
+}
+
+.file-item .file-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 1;
+}
+
+.file-item .file-info svg {
+  flex-shrink: 0;
+  color: var(--primary);
+}
+
+.file-actions {
+  display: flex;
+  gap: 0.5rem;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.file-item:hover .file-actions {
+  opacity: 1;
+}
+
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--background);
+  color: var(--foreground);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.btn-icon:hover {
+  background: var(--accent);
+  border-color: var(--primary);
+  color: var(--primary);
+  transform: scale(1.05);
+}
+
+.btn-icon:active {
+  transform: scale(0.95);
+}
+
+.preview-modal-header .btn-icon {
+  border: none;
+  background: transparent;
+}
+
+.preview-modal-header .btn-icon:hover {
+  background: var(--accent);
+  color: var(--destructive);
+}
+
+/* Preview Modal */
+.preview-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 1rem;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.preview-modal-content {
+  background: var(--card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+  max-width: 900px;
+  width: 100%;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  animation: slideUp 0.3s ease;
+}
+
+.preview-modal-content.pdf-modal {
+  max-width: 1400px;
+  max-height: 95vh;
+  width: 95vw;
+  height: 95vh;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.preview-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--background);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  flex-shrink: 0;
+}
+
+.preview-modal-header h3 {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--foreground);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: calc(100% - 50px);
+}
+
+.preview-modal-body {
+  flex: 1;
+  overflow: auto;
+  padding: 1.5rem;
+  min-height: 0;
+}
+
+.preview-modal-body.pdf-body {
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.preview-content {
+  margin: 0;
+  padding: 1.5rem;
+  background: var(--muted);
+  border-radius: var(--radius);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  line-height: 1.6;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+/* PDF Viewer Styles */
+.pdf-viewer-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  flex: 1;
+  min-height: 0;
+}
+
+.pdf-viewer {
+  flex: 1;
+  width: 100%;
+  min-height: 500px;
+  border: none;
+  background: #525659;
+}
+
+.pdf-controls {
+  padding: 0.75rem 1rem;
+  background: var(--background);
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.pdf-controls .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+}
+
+.preview-modal-footer {
+  display: flex;
+  gap: 0.75rem;
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--border);
+  justify-content: flex-end;
+  background: var(--background);
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  flex-shrink: 0;
+}
+
+.preview-modal-footer .btn {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+}
+
+/* Mobile Responsive for Preview Modal */
+@media (max-width: 768px) {
+  .preview-modal {
+    padding: 0;
+  }
+  
+  .preview-modal-content {
+    max-height: 100vh;
+    border-radius: 0;
+  }
+  
+  .preview-modal-content.pdf-modal {
+    max-width: 100vw;
+    max-height: 100vh;
+    width: 100vw;
+    height: 100vh;
+    border-radius: 0;
+  }
+  
+  .preview-modal-header {
+    border-radius: 0;
+  }
+  
+  .preview-modal-header h3 {
+    font-size: 1rem;
+  }
+  
+  .pdf-viewer {
+    min-height: 400px;
+  }
+  
+  .preview-modal-footer {
+    padding: 1rem;
+    border-radius: 0;
+  }
+  
+  .preview-modal-footer .btn {
+    padding: 0.625rem 1rem;
+  }
+  
+  .pdf-controls {
+    padding: 0.75rem;
+  }
+  
+  .pdf-controls .btn {
+    font-size: 0.8125rem;
+    padding: 0.5rem 0.75rem;
   }
 }
 

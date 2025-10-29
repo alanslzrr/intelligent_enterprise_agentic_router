@@ -152,15 +152,51 @@ async function loadDataFiles() {
         
         if (data.files && data.files.length > 0) {
             fileList.innerHTML = data.files.map(file => `
-                <div class="file-item" onclick="selectDataFile('${file.path}', '${file.name}')">
+                <div class="file-item" data-file-path="${escapeHtml(file.path)}" data-file-name="${escapeHtml(file.name)}">
                     <div class="file-info">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+                            <polyline points="13 2 13 9 20 9"></polyline>
+                        </svg>
                         <div class="file-details">
-                            <span class="file-name">${file.name}</span>
+                            <span class="file-name">${escapeHtml(file.name)}</span>
                             <span class="file-size">${formatFileSize(file.size)}</span>
                         </div>
                     </div>
+                    <div class="file-actions">
+                        <button class="btn-icon preview-btn" title="Preview file">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                        </button>
+                    </div>
                 </div>
             `).join('');
+            
+            // Add click event listeners to file items
+            document.querySelectorAll('.file-item').forEach(item => {
+                const filePath = item.dataset.filePath;
+                const fileName = item.dataset.fileName;
+                
+                // Add click to select file
+                item.addEventListener('click', function(e) {
+                    // Don't select if clicking on preview button
+                    if (e.target.closest('.preview-btn')) {
+                        return;
+                    }
+                    selectDataFile(this);
+                });
+                
+                // Add click to preview button
+                const previewBtn = item.querySelector('.preview-btn');
+                if (previewBtn) {
+                    previewBtn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        previewFile(filePath, fileName);
+                    });
+                }
+            });
         } else {
             fileList.innerHTML = '<div class="loading">No example files available</div>';
         }
@@ -169,12 +205,131 @@ async function loadDataFiles() {
     }
 }
 
-function selectDataFile(path, name) {
+function selectDataFile(fileItemElement) {
+    const path = fileItemElement.dataset.filePath;
+    const name = fileItemElement.dataset.fileName;
+    
     selectedFile = path;
+    
+    // Remove selected class from all items
     document.querySelectorAll('.file-item').forEach(item => {
         item.classList.remove('selected');
     });
-    event.currentTarget.classList.add('selected');
+    
+    // Add selected class to clicked item
+    fileItemElement.classList.add('selected');
+    
+    console.log('Selected file:', name, path);
+}
+
+async function previewFile(path, name) {
+    try {
+        // Fetch file content
+        const response = await fetch(`/api/file-preview?path=${encodeURIComponent(path)}`);
+        const data = await response.json();
+        
+        if (data.success) {
+            if (data.type === 'pdf') {
+                // For PDFs, pass the data object with path
+                showPreviewModal(name, data, data.type);
+            } else {
+                // For text files, pass the content
+                showPreviewModal(name, data.content, data.type);
+            }
+        } else {
+            showError('Failed to load file preview: ' + (data.error || 'Unknown error'));
+        }
+    } catch (error) {
+        showError('Failed to preview file: ' + error.message);
+    }
+}
+
+function showPreviewModal(filename, content, fileType) {
+    // Create modal overlay
+    const modal = document.createElement('div');
+    modal.className = 'preview-modal';
+    
+    let bodyContent;
+    
+    if (fileType === 'pdf') {
+        // For PDFs, show embedded viewer
+        const pdfPath = content.path || content;
+        bodyContent = `
+            <div class="pdf-viewer-container">
+                <iframe 
+                    src="${pdfPath}" 
+                    class="pdf-viewer"
+                    type="application/pdf"
+                    title="${escapeHtml(filename)}"
+                ></iframe>
+                <div class="pdf-controls">
+                    <a href="${pdfPath}" target="_blank" class="btn btn-secondary">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                            <polyline points="15 3 21 3 21 9"></polyline>
+                            <line x1="10" y1="14" x2="21" y2="3"></line>
+                        </svg>
+                        Open in New Tab
+                    </a>
+                </div>
+            </div>
+        `;
+    } else {
+        // For text files, show content
+        bodyContent = `<pre class="preview-content">${escapeHtml(content)}</pre>`;
+    }
+    
+    modal.innerHTML = `
+        <div class="preview-modal-content ${fileType === 'pdf' ? 'pdf-modal' : ''}">
+            <div class="preview-modal-header">
+                <h3>${escapeHtml(filename)}</h3>
+                <button class="btn-icon close-preview">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="preview-modal-body ${fileType === 'pdf' ? 'pdf-body' : ''}">
+                ${bodyContent}
+            </div>
+            <div class="preview-modal-footer">
+                <button class="btn btn-secondary close-modal-btn">Close</button>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+    
+    // Add event listeners
+    const closeBtn = modal.querySelector('.close-preview');
+    const closeModalBtn = modal.querySelector('.close-modal-btn');
+    
+    closeBtn.addEventListener('click', closePreviewModal);
+    closeModalBtn.addEventListener('click', closePreviewModal);
+    
+    // Close on overlay click
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            closePreviewModal();
+        }
+    });
+    
+    // Close on escape key
+    const escapeHandler = function(e) {
+        if (e.key === 'Escape') {
+            closePreviewModal();
+            document.removeEventListener('keydown', escapeHandler);
+        }
+    };
+    document.addEventListener('keydown', escapeHandler);
+}
+
+function closePreviewModal() {
+    const modal = document.querySelector('.preview-modal');
+    if (modal) {
+        modal.remove();
+    }
 }
 
 // Event Listeners
