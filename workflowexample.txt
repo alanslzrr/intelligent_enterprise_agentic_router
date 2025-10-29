@@ -1,0 +1,581 @@
+(PhoenixCalibration) PS C:\Projects\UIE_GISI\tec_automatizacion_robotizacion\intelligent_enterprise_agentic_router> & C:/Users/alanslzr/anaconda3/envs/PhoenixCalibration/python.exe c:/Projects/UIE_GISI/tec_automatizacion_robotizacion/intelligent_enterprise_agentic_router/router.py
+
+=== Selecciona un archivo para procesar ===
+1. Margaret-Wangari-Waithaka-CV.pdf [PDF]
+2. prueba.txt [TXT]
+3. requirements.txt [TXT]
+
+Ingresa el número del archivo: 1
+
+[Procesando: Margaret-Wangari-Waithaka-CV.pdf]
+
+Puedes proporcionar una pregunta/instrucción específica para el archivo,
+o presiona Enter para usar la consulta predeterminada.
+Tu pregunta (opcional): 
+
+>>> INPUT → Guardrails:
+[MULTI-MODAL INPUT - Messages with files]
+  Role: user
+    - File: Margaret-Wangari-Waithaka-CV.pdf
+    - Text: Analiza este documento y extrae toda la información relevante....
+
+==================== [1] START Agent: Guardrails ====================
+[USAGE] Guardrails → requests=1 input_tokens=2425 output_tokens=1611 total_tokens=4036
+
+==================== END Agent: Guardrails ====================
+
+<<< OUTPUT ← Guardrails:
+{
+  "pass": true,
+  "safe_text": "CURRICULUM VITAE (CV)\nPERSONAL DETAILS\nNAME: Margaret Wangari Waithaka\nPOSTAL ADDRESS: [REDACTED_ADDRESS]\nEMAIL ADRESS: mwaithaka@kibu.ac.ke\nMOBILE PHONE NO: [REDACTED_PHONE]\nDATE OF BIRTH: 18th June 1973\nMARITAL STATUS: Married\nNATIONALITY: Kenyan\nLANGUAGES SPOKEN: Kiswahili, English, Kikuyu\nCAREER OBJECTIVE\nTo become a competent professional in the field of Hospitality Industry while rendering services \nenthusiastically to the best of my ability\nSUMMARY\nA Hostels Officer with 16 years of experience in Hospitality Industry. Well versed in executing \nmultiple tasks in a fast paced environment. Friendly and effective when working with a wide \nrange of personalities, honest and hard working\nSKILLS \n1. Strong Management and Organizational Skills\n2. Deep cleaning expertise and an eye for detail\n3. Sound Decision Making Skills\n4. Strong Leadership Skills\n5. Good Communication Skills\nEducation back ground\nINSTITUTION YEAR OF STUDY QUALIFICATION\nUniversity of Eldoret 2014-2017 Bachelors in Hotel and \nHospitality\nKenya Polytechnic 1993-1993 Diploma in Catering and \nAccommodation Technology\nKenya Technical Teachers \nCollege\n1997-1998 Diploma in Technical \nEducation\nKarima Girls High School 1988-1991 Kenya Certificate of \nSecondary Education\nKahuru Primary School 1980-1997 Kenya Certificate of Primary \nEducation\nHytech computer college 2008 Computer packages\nWORK EXPERIENCE\nAg. Hostels Officer\nFrom 23/9/2013 to Date\n1. Responsible for the organizations Cleanliness, Safety, Comfort and Ambience \n2. Conduct appropriate departmental meetings and co-ordinate the operations for maximum \nproductivity in line with the work plan\n3. Ensuring that the managements policies and directives are implemented within the \ndepartment\n4. Delegation of duties and staff supervision\n5. Working in liaison with Procurement Department in sourcing of external service providers i.e \nSanitary Disposal, Fumigation/Spraying and Cleaning Services\n6. On-Job Training of the new staff and out sourced cleaning service providers\n7. Prepare Work Plans, Cleaning Schedules and Inspection Checklists to ensure high standards \nof cleaning are achieved and maintained\nAssistant Hostels Officer\nFrom 6/7/2015 to date \nPerformed the duties of the Hostels Officer on Acting Capacity\nSenior Housekeeper\nFrom 18/11/2013 to 6/7/2015\nPerformed the duties of Hostels Officer on an Acting Capacity\nCateress\n24/4/2012 to 18/11/2013\n1. Responsible for Menu Planning, Food Production and Service\n2. Making food orders from the store \n3. Quality and Stock Control\n4. Food Costing and Sales Analysis.\n5. Ensure cleanliness and hygiene is maintained in the kitchen\n6. Supervision of Kitchen Staff\n7. Preparation of staff duty Rota and delegation of duties\nAssistant Housekeeper\n17/10/2003 to 9/3/2012\n1. Inspect levels of cleanliness in the halls of residence\n2. Report any maintenance defects to the Housekeeper on duty for intervention\n3. Order and control cleaning materials and equipment and maintain an Inventory Record\n4. Allocate duties to the room stewards and supervise them\nOTHER RESPONSIBIBILITIES HELD\n1. ISO 9001:2015 implementer\n2. ISO 9001:2015 internal auditor\nCURRENT DUTIES AND RESPONSIBILITIES\n1. Ensuring highest level of cleanliness is achieved and maintained at all time, \n2. Ensuring that the environment is safe and comfortable with an attractive ambience at all time.\n3. Give direction on the day to day running of the department\n4. Supervising the staff working under my office\n5. Appraising the staff working in the department\n6. Making approvals on behave of the department\n7. Dealing with disciplinary cases of the students and staff within the department.\n8. Representing the department in meetings and other forums\n9. Reporting serious issues affecting the department to the management for guidance and \ninterventions\n10. Liaising with other departments e.g. maintenance, procurement and public health\n11. On job training and orientation of new staff and outsourced service providers\n12. Ensuring law and order among staff is maintained in the work place\n13. Ensuring that quality management systems(QMS) are adhered to in the department\n14. Signing of the performance contract on behave of the department and ensuring that targets\nare achieved.\nWORKSHOPS AND SEMINARS ATTENDED\n1. Co-operate Governance Training course held at Kibabii University\n2. Quality service and customer satisfaction seminar at Kibabii University\n3. Housekeeping and Catering Supervisors’ seminar held at Masinde Muliro University\n4. Improving Service Delivery and Students Welfare seminar held at Bishop Stam Kakamega\n5. Child Mentorship seminar held at Full Gospel Church Kakamega\n6. Enhancing Management of Culture, Integration And Internalization held at Kibabii \nUniversity\n7. ISO 9001:2008 implementers’ workshop held at Kibabii University\n8. ISO 9001:2008 Internal Quality Auditors Training At Eldoret\nReferees\n1. Ms.Noel Malanda\nDean of Student Kibabii University\nPhone No: [REDACTED_PHONE]\n2. Prof.Julius Maiyo\nSenior Lecturer Kibabii University\nPhone No: [REDACTED_PHONE]\n3. Mr Cyprian Lusweti\nAssistant Dean of Student Kibabii University\nPhone No: [REDACTED_PHONE]",
+  "flags": {
+    "moderation": {
+      "flagged": false,
+      "categories": []
+    },
+    "pii": {
+      "found": true,
+      "redactions": 4
+    },
+    "jailbreak": {
+      "suspected": false,
+      "reason": ""
+    }
+  }
+}
+
+>>> INPUT → Intent classifier:
+CURRICULUM VITAE (CV)
+PERSONAL DETAILS
+NAME: Margaret Wangari Waithaka
+POSTAL ADDRESS: [REDACTED_ADDRESS]
+EMAIL ADRESS: mwaithaka@kibu.ac.ke
+MOBILE PHONE NO: [REDACTED_PHONE]
+DATE OF BIRTH: 18th June 1973
+MARITAL STATUS: Married
+NATIONALITY: Kenyan
+LANGUAGES SPOKEN: Kiswahili, English, Kikuyu
+CAREER OBJECTIVE
+To become a competent professional in the field of Hospitality Industry while rendering services
+enthusiastically to the best of my ability
+SUMMARY
+A Hostels Officer with 16 years of experience in Hospitality Industry. Well versed in executing
+multiple tasks in a fast paced environment. Friendly and effective when working with a wide
+range of personalities, honest and hard working
+SKILLS
+1. Strong Management and Organizational Skills
+2. Deep cleaning expertise and an eye for detail
+3. Sound Decision Making Skills
+4. Strong Leadership Skills
+5. Good Communication Skills
+Education back ground
+INSTITUTION YEAR OF STUDY QUALIFICATION
+University of Eldoret 2014-2017 Bachelors in Hotel and
+Hospitality
+Kenya Polytechnic 1993-1993 Diploma in Catering and
+Accommodation Technology
+Kenya Technical Teachers
+College
+1997-1998 Diploma in Technical
+Education
+Karima Girls High School 1988-1991 Kenya Certificate of
+Secondary Education
+Kahuru Primary School 1980-1997 Kenya Certificate of Primary
+Education
+Hytech computer college 2008 Computer packages
+WORK EXPERIENCE
+Ag. Hostels Officer
+From 23/9/2013 to Date
+1. Responsible for the organizations Cleanliness, Safety, Comfort and Ambience
+2. Conduct appropriate departmental meetings and co-ordinate the operations for maximum
+productivity in line with the work plan
+3. Ensuring that the managements policies and directives are implemented within the
+department
+4. Delegation of duties and staff supervision
+5. Working in liaison with Procurement Department in sourcing of external service providers i.e
+Sanitary Disposal, Fumigation/Spraying and Cleaning Services
+6. On-Job Training of the new staff and out sourced cleaning service providers
+7. Prepare Work Plans, Cleaning Schedules and Inspection Checklists to ensure high standards
+of cleaning are achieved and maintained
+Assistant Hostels Officer
+From 6/7/2015 to date
+Performed the duties of the Hostels Officer on Acting Capacity
+Senior Housekeeper
+From 18/11/2013 to 6/7/2015
+Performed the duties of Hostels Officer on an Acting Capacity
+Cateress
+24/4/2012 to 18/11/2013
+1. Responsible for Menu Planning, Food Production and Service
+2. Making food orders from the store
+3. Quality and Stock Control
+4. Food Costing and Sales Analysis.
+5. Ensure cleanliness and hygiene is maintained in the kitchen
+6. Supervision of Kitchen Staff
+7. Preparation of staff duty Rota and delegation of duties
+Assistant Housekeeper
+17/10/2003 to 9/3/2012
+1. Inspect levels of cleanliness in the halls of residence
+2. Report any maintenance defects to the Housekeeper on duty for intervention
+3. Order and control cleaning materials and equipment and maintain an Inventory Record
+4. Allocate duties to the room stewards and supervise them
+OTHER RESPONSIBIBILITIES HELD
+1. ISO 9001:2015 implementer
+2. ISO 9001:2015 internal auditor
+CURRENT DUTIES AND RESPONSIBILITIES
+1. Ensuring highest level of cleanliness is achieved and maintained at all time,
+2. Ensuring that the environment is safe and comfortable with an attractive ambience at all time.
+3. Give direction on the day to day running of the department
+4. Supervising the staff working under my office
+5. Appraising the staff working in the department
+6. Making approvals on behave of the department
+7. Dealing with disciplinary cases of the students and staff within the department.
+8. Representing the department in meetings and other forums
+9. Reporting serious issues affecting the department to the management for guidance and
+interventions
+10. Liaising with other departments e.g. maintenance, procurement and public health
+11. On job training and orientation of new staff and outsourced service providers
+12. Ensuring law and order among staff is maintained in the work place
+13. Ensuring that quality management systems(QMS) are adhered to in the department
+14. Signing of the performance contract on behave of the department and ensuring that targets
+are achieved.
+WORKSHOPS AND SEMINARS ATTENDED
+1. Co-operate Governance Training course held at Kibabii University
+2. Quality service and customer satisfaction seminar at Kibabii University
+3. Housekeeping and Catering Supervisors’ seminar held at Masinde Muliro University
+4. Improving Service Delivery and Students Welfare seminar held at Bishop Stam Kakamega
+5. Child Mentorship seminar held at Full Gospel Church Kakamega
+6. Enhancing Management of Culture, Integration And Internalization held at Kibabii
+University
+7. ISO 9001:2008 implementers’ workshop held at Kibabii University
+8. ISO 9001:2008 Internal Quality Auditors Training At Eldoret
+Referees
+1. Ms.Noel Malanda
+Dean of Student Kibabii University
+Phone No: [REDACTED_PHONE]
+2. Prof.Julius Maiyo
+Senior Lecturer Kibabii University
+Phone No: [REDACTED_PHONE]
+3. Mr Cyprian Lusweti
+Assistant Dean of Student Kibabii University
+Phone No: [REDACTED_PHONE]
+
+==================== [2] START Agent: Intent classifier ====================
+[USAGE] Intent classifier → requests=1 input_tokens=1548 output_tokens=25 total_tokens=1573
+
+==================== END Agent: Intent classifier ====================
+
+<<< OUTPUT ← Intent classifier:
+{
+  "category": "cv",
+  "confidence": 0.95,
+  "language": "en"
+}
+
+>>> INPUT → Owner mapping:
+{
+  "category": "cv",
+  "confidence": 0.95,
+  "language": "en"
+}
+
+==================== [3] START Agent: Owner mapping ====================
+[USAGE] Owner mapping → requests=1 input_tokens=314 output_tokens=98 total_tokens=412
+
+==================== END Agent: Owner mapping ====================
+
+<<< OUTPUT ← Owner mapping:
+{
+  "route_department": "hr",
+  "owner_email": "talent@aurora-agentics.test",
+  "owner_name": "HR Team"
+}
+
+>>> INPUT → CV extractor:
+CURRICULUM VITAE (CV)
+PERSONAL DETAILS
+NAME: Margaret Wangari Waithaka
+POSTAL ADDRESS: [REDACTED_ADDRESS]
+EMAIL ADRESS: mwaithaka@kibu.ac.ke
+MOBILE PHONE NO: [REDACTED_PHONE]
+DATE OF BIRTH: 18th June 1973
+MARITAL STATUS: Married
+NATIONALITY: Kenyan
+LANGUAGES SPOKEN: Kiswahili, English, Kikuyu
+CAREER OBJECTIVE
+To become a competent professional in the field of Hospitality Industry while rendering services
+enthusiastically to the best of my ability
+SUMMARY
+A Hostels Officer with 16 years of experience in Hospitality Industry. Well versed in executing
+multiple tasks in a fast paced environment. Friendly and effective when working with a wide
+range of personalities, honest and hard working
+SKILLS
+1. Strong Management and Organizational Skills
+2. Deep cleaning expertise and an eye for detail
+3. Sound Decision Making Skills
+4. Strong Leadership Skills
+5. Good Communication Skills
+Education back ground
+INSTITUTION YEAR OF STUDY QUALIFICATION
+University of Eldoret 2014-2017 Bachelors in Hotel and
+Hospitality
+Kenya Polytechnic 1993-1993 Diploma in Catering and
+Accommodation Technology
+Kenya Technical Teachers
+College
+1997-1998 Diploma in Technical
+Education
+Karima Girls High School 1988-1991 Kenya Certificate of
+Secondary Education
+Kahuru Primary School 1980-1997 Kenya Certificate of Primary
+Education
+Hytech computer college 2008 Computer packages
+WORK EXPERIENCE
+Ag. Hostels Officer
+From 23/9/2013 to Date
+1. Responsible for the organizations Cleanliness, Safety, Comfort and Ambience
+2. Conduct appropriate departmental meetings and co-ordinate the operations for maximum
+productivity in line with the work plan
+3. Ensuring that the managements policies and directives are implemented within the
+department
+4. Delegation of duties and staff supervision
+5. Working in liaison with Procurement Department in sourcing of external service providers i.e
+Sanitary Disposal, Fumigation/Spraying and Cleaning Services
+6. On-Job Training of the new staff and out sourced cleaning service providers
+7. Prepare Work Plans, Cleaning Schedules and Inspection Checklists to ensure high standards
+of cleaning are achieved and maintained
+Assistant Hostels Officer
+From 6/7/2015 to date
+Performed the duties of the Hostels Officer on Acting Capacity
+Senior Housekeeper
+From 18/11/2013 to 6/7/2015
+Performed the duties of Hostels Officer on an Acting Capacity
+Cateress
+24/4/2012 to 18/11/2013
+1. Responsible for Menu Planning, Food Production and Service
+2. Making food orders from the store
+3. Quality and Stock Control
+4. Food Costing and Sales Analysis.
+5. Ensure cleanliness and hygiene is maintained in the kitchen
+6. Supervision of Kitchen Staff
+7. Preparation of staff duty Rota and delegation of duties
+Assistant Housekeeper
+17/10/2003 to 9/3/2012
+1. Inspect levels of cleanliness in the halls of residence
+2. Report any maintenance defects to the Housekeeper on duty for intervention
+3. Order and control cleaning materials and equipment and maintain an Inventory Record
+4. Allocate duties to the room stewards and supervise them
+OTHER RESPONSIBIBILITIES HELD
+1. ISO 9001:2015 implementer
+2. ISO 9001:2015 internal auditor
+CURRENT DUTIES AND RESPONSIBILITIES
+1. Ensuring highest level of cleanliness is achieved and maintained at all time,
+2. Ensuring that the environment is safe and comfortable with an attractive ambience at all time.
+3. Give direction on the day to day running of the department
+4. Supervising the staff working under my office
+5. Appraising the staff working in the department
+6. Making approvals on behave of the department
+7. Dealing with disciplinary cases of the students and staff within the department.
+8. Representing the department in meetings and other forums
+9. Reporting serious issues affecting the department to the management for guidance and
+interventions
+10. Liaising with other departments e.g. maintenance, procurement and public health
+11. On job training and orientation of new staff and outsourced service providers
+12. Ensuring law and order among staff is maintained in the work place
+13. Ensuring that quality management systems(QMS) are adhered to in the department
+14. Signing of the performance contract on behave of the department and ensuring that targets
+are achieved.
+WORKSHOPS AND SEMINARS ATTENDED
+1. Co-operate Governance Training course held at Kibabii University
+2. Quality service and customer satisfaction seminar at Kibabii University
+3. Housekeeping and Catering Supervisors’ seminar held at Masinde Muliro University
+4. Improving Service Delivery and Students Welfare seminar held at Bishop Stam Kakamega
+5. Child Mentorship seminar held at Full Gospel Church Kakamega
+6. Enhancing Management of Culture, Integration And Internalization held at Kibabii
+University
+7. ISO 9001:2008 implementers’ workshop held at Kibabii University
+8. ISO 9001:2008 Internal Quality Auditors Training At Eldoret
+Referees
+1. Ms.Noel Malanda
+Dean of Student Kibabii University
+Phone No: [REDACTED_PHONE]
+2. Prof.Julius Maiyo
+Senior Lecturer Kibabii University
+Phone No: [REDACTED_PHONE]
+3. Mr Cyprian Lusweti
+Assistant Dean of Student Kibabii University
+Phone No: [REDACTED_PHONE]
+
+==================== [4] START Agent: CV extractor ====================
+[USAGE] CV extractor → requests=1 input_tokens=1542 output_tokens=266 total_tokens=1808
+
+==================== END Agent: CV extractor ====================
+
+<<< OUTPUT ← CV extractor:
+{
+  "full_name": "Margaret Wangari Waithaka",
+  "email": "mwaithaka@kibu.ac.ke",
+  "phone": "",
+  "location": "Kenya",
+  "years_experience": 16,
+  "skills": [
+    "Management",
+    "Organizational skills",
+    "Deep cleaning/housekeeping",
+    "Decision making",
+    "Leadership",
+    "Communication",
+    "Cleaning schedules and inspection checklists",
+    "On‑job training",
+    "Procurement liaison",
+    "Inventory and stock control",
+    "Food production and catering",
+    "Food costing and sales analysis",
+    "ISO 9001:2015 implementation and internal auditing",
+    "Quality management systems (QMS)"
+  ],
+  "target_department": "operations",
+  "role_guess": "Hostels Officer",
+  "availability": "not specified"
+}
+
+>>> INPUT → CV matcher:
+Candidate data:
+{
+  "full_name": "Margaret Wangari Waithaka",
+  "email": "mwaithaka@kibu.ac.ke",
+  "phone": "",
+  "location": "Kenya",
+  "years_experience": 16,
+  "skills": [
+    "Management",
+    "Organizational skills",
+    "Deep cleaning/housekeeping",
+    "Decision making",
+    "Leadership",
+    "Communication",
+    "Cleaning schedules and inspection checklists",
+    "On‑job training",
+    "Procurement liaison",
+    "Inventory and stock control",
+    "Food production and catering",
+    "Food costing and sales analysis",
+    "ISO 9001:2015 implementation and internal auditing",
+    "Quality management systems (QMS)"
+  ],
+  "target_department": "operations",
+  "role_guess": "Hostels Officer",
+  "availability": "not specified"
+}
+
+==================== [5] START Agent: CV matcher ====================
+[USAGE] CV matcher → requests=1 input_tokens=965 output_tokens=218 total_tokens=1183
+
+==================== END Agent: CV matcher ====================
+
+<<< OUTPUT ← CV matcher:
+{
+  "vacancies_found": true,
+  "best_match": null,
+  "matched_roles": []
+}
+
+>>> INPUT → Draft HR reject:
+{
+  "full_name": "Margaret Wangari Waithaka",
+  "email": "mwaithaka@kibu.ac.ke",
+  "phone": "",
+  "location": "Kenya",
+  "years_experience": 16,
+  "skills": [
+    "Management",
+    "Organizational skills",
+    "Deep cleaning/housekeeping",
+    "Decision making",
+    "Leadership",
+    "Communication",
+    "Cleaning schedules and inspection checklists",
+    "On‑job training",
+    "Procurement liaison",
+    "Inventory and stock control",
+    "Food production and catering",
+    "Food costing and sales analysis",
+    "ISO 9001:2015 implementation and internal auditing",
+    "Quality management systems (QMS)"
+  ],
+  "target_department": "operations",
+  "role_guess": "Hostels Officer",
+  "availability": "not specified"
+}
+
+==================== [6] START Agent: Draft HR reject ====================
+[USAGE] Draft HR reject → requests=1 input_tokens=427 output_tokens=283 total_tokens=710
+
+==================== END Agent: Draft HR reject ====================
+
+<<< OUTPUT ← Draft HR reject:
+{
+  "to": "mwaithaka@kibu.ac.ke",
+  "cc": "",
+  "subject": "Gracias por tu candidatura – Aurora Agentics",
+  "body_markdown": "Hola Margaret Wangari Waithaka,\n\nMuchas gracias por postularte y por compartir tu experiencia con nosotros. Apreciamos el tiempo que dedicaste a enviarnos tu candidatura para el área de operaciones.\n\nTras revisar tu perfil, en este momento no encontramos una posición que se ajuste exactamente a tu experiencia y competencias. No obstante, valoramos mucho tu interés en Aurora Agentics y conservaremos tu currículum en nuestra base de datos durante los próximos 6 meses por si surgiera una oportunidad adecuada.\n\nTe animamos a que consultes periódicamente nuestra página de ofertas en: https://aurora-agentics.test/careers para estar al tanto de nuevas vacantes.\n\nGracias nuevamente por tu interés. Te deseamos mucho éxito en tu búsqueda profesional.\n\nAtentamente,\n\nEquipo de Talento Humano\nAurora Agentics"
+}
+
+>>> INPUT → Packager HR reject:
+{
+  "reason": "no_vacancies",
+  "cv_extract": {
+    "full_name": "Margaret Wangari Waithaka",
+    "email": "mwaithaka@kibu.ac.ke",
+    "phone": "",
+    "location": "Kenya",
+    "years_experience": 16,
+    "skills": [
+      "Management",
+      "Organizational skills",
+      "Deep cleaning/housekeeping",
+      "Decision making",
+      "Leadership",
+      "Communication",
+      "Cleaning schedules and inspection checklists",
+      "On‑job training",
+      "Procurement liaison",
+      "Cleaning schedules and inspection checklists",
+      "On‑job training",
+      "Procurement liaison",
+      "On‑job training",
+      "Procurement liaison",
+      "Procurement liaison",
+      "Inventory and stock control",
+      "Food production and catering",
+      "Food costing and sales analysis",
+      "Food costing and sales analysis",
+      "ISO 9001:2015 implementation and internal auditing",
+      "Quality management systems (QMS)"
+    ],
+      "ISO 9001:2015 implementation and internal auditing",
+      "Quality management systems (QMS)"
+    ],
+    "target_department": "operations",
+    "role_guess": "Hostels Officer",
+      "Quality management systems (QMS)"
+    ],
+    "target_department": "operations",
+    "role_guess": "Hostels Officer",
+    "availability": "not specified"
+    ],
+    "target_department": "operations",
+    "role_guess": "Hostels Officer",
+    "availability": "not specified"
+    "target_department": "operations",
+    "role_guess": "Hostels Officer",
+    "availability": "not specified"
+  },
+    "availability": "not specified"
+  },
+  },
+  "draft_email": {
+  "draft_email": {
+    "to": "mwaithaka@kibu.ac.ke",
+    "cc": "",
+    "subject": "Gracias por tu candidatura – Aurora Agentics",
+    "body_markdown": "Hola Margaret Wangari Waithaka,\n\nMuchas gracias por postularte y por compartir tu experiencia con nosotros. Apreciamos el tiempo que dedicaste a enviarnos tu candidatura para el área de operaciones.\n\nTras revisar tu perfil, en este momento no encontramos una posición que se ajuste exactamente a tu experiencia y competencias. No obstante, valoramos mucho tu interés en Aurora Agentics y conservaremos tu currículum en nuestra base de datos durante los próximos 6 meses por si surgiera una oportunidad adecuada.\n\nTe animamos a que consultes periódicamente nuestra página de ofertas en: https://aurora-agentics.test/careers para estar al tanto de nuevas vacantes.\n\nGracias nuevamente por tu interés. Te deseamos mucho éxito en tu búsqueda profesional.\n\nAtentamente,\n\nEquipo de Talento Humano\nAurora Agentics"
+  },
+  "owner_map": {
+    "route_department": "hr",
+    "owner_email": "talent@aurora-agentics.test",
+    "owner_name": "HR Team"
+  }
+}
+
+==================== [7] START Agent: Packager HR reject ====================
+[USAGE] Packager HR reject → requests=1 input_tokens=629 output_tokens=562 total_tokens=1191
+
+==================== END Agent: Packager HR reject ====================
+
+<<< OUTPUT ← Packager HR reject:
+{
+  "final_route": "hr_cv_reject",
+  "payload": {
+    "reason": "no_vacancies",
+    "cv_extract": {
+      "full_name": "Margaret Wangari Waithaka",
+      "email": "mwaithaka@kibu.ac.ke",
+      "phone": "",
+      "location": "Kenya",
+      "years_experience": 16,
+      "skills": [
+        "Management",
+        "Organizational skills",
+        "Deep cleaning/housekeeping",
+        "Decision making",
+        "Leadership",
+        "Communication",
+        "Cleaning schedules and inspection checklists",
+        "On‑job training",
+        "Procurement liaison",
+        "Inventory and stock control",
+        "Food production and catering",
+        "Food costing and sales analysis",
+        "ISO 9001:2015 implementation and internal auditing",
+        "Quality management systems (QMS)"
+      ],
+      "target_department": "operations",
+      "role_guess": "Hostels Officer",
+      "availability": "not specified"
+    },
+    "draft_email": {
+      "to": "mwaithaka@kibu.ac.ke",
+      "cc": "",
+      "subject": "Gracias por tu candidatura – Aurora Agentics",
+      "body_markdown": "Hola Margaret Wangari Waithaka,\n\nMuchas gracias por postularte y por compartir tu experiencia con nosotros. Apreciamos el tiempo que dedicaste a enviarnos tu candidatura para el área de operaciones.\n\nTras revisar tu perfil, en este momento no encontramos una posición que se ajuste exactamente a tu experiencia y competencias. No obstante, valoramos mucho tu interés en Aurora Agentics y conservaremos tu currículum en nuestra base de datos durante los próximos 6 meses por si surgiera una oportunidad adecuada.\n\nTe animamos a que consultes periódicamente nuestra página de ofertas en: https://aurora-agentics.test/careers para estar al tanto de nuevas vacantes.\n\nGracias nuevamente por tu interés. Te deseamos mucho éxito en tu búsqueda profesional.\n\nAtentamente,\n\nEquipo de Talento Humano\nAurora Agentics"
+    },
+    "owner_map": {
+      "route_department": "hr",
+      "owner_email": "talent@aurora-agentics.test",
+      "owner_name": "HR Team"
+    }
+  }
+}
+{
+  "final_route": "hr_cv_reject",
+  "payload": {
+    "reason": "no_vacancies",
+    "cv_extract": {
+      "full_name": "Margaret Wangari Waithaka",
+      "email": "mwaithaka@kibu.ac.ke",
+      "phone": "",
+      "location": "Kenya",
+      "years_experience": 16,
+      "skills": [
+        "Management",
+        "Organizational skills",
+        "Deep cleaning/housekeeping",
+        "Decision making",
+        "Leadership",
+        "Communication",
+        "Cleaning schedules and inspection checklists",
+        "On‑job training",
+        "Procurement liaison",
+        "Inventory and stock control",
+        "Food production and catering",
+        "Food costing and sales analysis",
+        "ISO 9001:2015 implementation and internal auditing",
+        "Quality management systems (QMS)"
+      ],
+      "target_department": "operations",
+      "role_guess": "Hostels Officer",
+      "availability": "not specified"
+    },
+    "draft_email": {
+      "to": "mwaithaka@kibu.ac.ke",
+      "cc": "",
+      "subject": "Gracias por tu candidatura – Aurora Agentics",
+      "body_markdown": "Hola Margaret Wangari Waithaka,\n\nMuchas gracias por postularte y por compartir tu experiencia con nosotros. Apreciamos el tiempo que dedicaste a enviarnos tu candidatura para el área de operaciones.\n\nTras revisar tu perfil, en este momento no encontramos una posición que se ajuste exactamente a tu experiencia y competencias. No obstante, valoramos mucho tu interés en Aurora Agentics y conservaremos tu currículum en nuestra base de datos durante los próximos 6 meses por si surgiera una oportunidad adecuada.\n\nTe animamos a que consultes periódicamente nuestra página de ofertas en: https://aurora-agentics.test/careers para estar al tanto de nuevas vacantes.\n\nGracias nuevamente por tu interés. Te deseamos mucho éxito en tu búsqueda profesional.\n\nAtentamente,\n\nEquipo de Talento Humano\nAurora Agentics"
+    },
+    "owner_map": {
+      "route_department": "hr",
+      "owner_email": "talent@aurora-agentics.test",
+      "owner_name": "HR Team"
+    }
+  }
+}

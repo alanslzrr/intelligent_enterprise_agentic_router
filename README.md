@@ -4,6 +4,8 @@
 
 El presente informe documenta el desarrollo e implementación de un sistema automatizado de procesamiento y enrutamiento de comunicaciones empresariales basado en una arquitectura multiagente utilizando el SDK de OpenAI Agents. El sistema está diseñado para clasificar, analizar y direccionar automáticamente diferentes tipos de comunicaciones (currículums, consultas comerciales y solicitudes de eventos) hacia los departamentos correspondientes, optimizando los procesos de gestión empresarial de Aurora Agentics.
 
+**Actualización:** El sistema ahora incluye soporte multi-modal para procesar archivos PDF e imágenes directamente, utilizando las capacidades nativas de los modelos de OpenAI sin bibliotecas externas de OCR o extracción.
+
 ---
 
 ## 1. Introducción
@@ -54,6 +56,8 @@ Desarrollar e implementar un sistema automatizado de procesamiento y enrutamient
 
 6. **Establecer un sistema de visualización arquitectónica**: Desarrollar herramientas de documentación visual que permitan comprender, comunicar y optimizar la estructura del sistema multiagente.
 
+7. **Implementar soporte multi-modal**: Integrar capacidades de procesamiento de archivos PDF e imágenes mediante el envío directo de archivos a los modelos de OpenAI, sin utilizar bibliotecas externas de OCR o extracción de datos.
+
 ---
 
 ## 3. Metodología
@@ -61,6 +65,8 @@ Desarrollar e implementar un sistema automatizado de procesamiento y enrutamient
 ### 3.1 Enfoque de Desarrollo
 
 La implementación del sistema se basó en una metodología de desarrollo iterativo utilizando principios de arquitectura orientada a agentes. Se adoptó el SDK de OpenAI Agents como framework tecnológico principal, complementado con Pydantic para validación de esquemas y Python como lenguaje de programación base.
+
+El sistema fue posteriormente extendido para soportar entradas multi-modales (PDFs e imágenes) mediante la integración directa con las capacidades de visión y procesamiento de documentos de los modelos de OpenAI, eliminando la necesidad de bibliotecas de extracción de terceros.
 
 ### 3.2 Arquitectura del Sistema
 
@@ -237,7 +243,52 @@ Todos los agentes utilizan el modelo `gpt-5-mini` con configuraciones optimizada
 - **Verbosity**: low (respuestas concisas)
 - **Structured outputs**: Habilitado mediante `output_type`
 
-### 4.4 Manejo de Errores
+### 4.4 Procesamiento Multi-Modal
+
+El sistema soporta tres tipos de entrada:
+
+1. **Texto plano (.txt)**: Procesamiento directo del contenido textual
+2. **Documentos PDF (.pdf)**: Codificación base64 y envío directo al modelo mediante la estructura de mensajes de OpenAI Agents SDK
+3. **Imágenes (.png, .jpg, .jpeg, .gif, .webp)**: Codificación base64 y análisis mediante capacidades de visión del modelo
+
+Esta implementación utiliza únicamente el módulo `base64` de Python y las capacidades nativas de los modelos de OpenAI, eliminando dependencias de bibliotecas externas como PyPDF2, pdfplumber o pytesseract.
+
+El procesamiento multi-modal se logra mediante la estructura de mensajes del SDK:
+
+```python
+# Ejemplo para PDF
+{
+    "role": "user",
+    "content": [
+        {
+            "type": "input_file",
+            "filename": "curriculum.pdf",
+            "file_data": "data:application/pdf;base64,<base64_string>",
+        },
+        {
+            "type": "input_text",
+            "text": "Extrae la información del candidato",
+        },
+    ],
+}
+
+# Ejemplo para imagen
+{
+    "role": "user",
+    "content": [
+        {
+            "type": "input_image",
+            "image_url": "data:image/png;base64,<base64_string>",
+        },
+        {
+            "type": "input_text",
+            "text": "Analiza el contenido de esta imagen",
+        },
+    ],
+}
+```
+
+### 4.5 Manejo de Errores
 
 El sistema implementa múltiples capas de manejo de errores:
 
@@ -497,6 +548,35 @@ La arquitectura modular permite reutilizar agentes individuales en otros context
 
 **Output**: final_route="guardrails_block", sin procesamiento adicional
 
+### 7.4 Procesamiento de Currículum desde PDF
+
+**Input**: Archivo PDF con currículum vitae del candidato
+
+**Flujo ejecutado**:
+1. Archivo PDF codificado en base64
+2. Mensaje multi-modal creado con PDF y consulta de extracción
+3. Guardrails: Validación exitosa del contenido extraído
+4. Intent Classifier: category="cv", confidence=0.92
+5. CV Extractor: Extracción de datos estructurados desde el PDF
+6. CV Matcher: Evaluación contra vacantes disponibles
+7. Generación de respuesta apropiada según match
+
+**Output**: Procesamiento completo del CV sin necesidad de extracción manual o bibliotecas OCR
+
+### 7.5 Análisis de Lead desde Captura de Pantalla
+
+**Input**: Imagen PNG con captura de correo electrónico de prospecto comercial
+
+**Flujo ejecutado**:
+1. Imagen codificada en base64
+2. Mensaje multi-modal creado con imagen y consulta de extracción
+3. Guardrails: Validación exitosa
+4. Intent Classifier: category="sales", confidence=0.88
+5. Sales Extractor: Extracción de información del lead desde la imagen
+6. Calificación y generación de briefing comercial
+
+**Output**: Lead cualificado extraído directamente de la captura de pantalla
+
 ---
 
 ## 8. Trabajo Futuro y Extensiones
@@ -506,10 +586,14 @@ La arquitectura modular permite reutilizar agentes individuales en otros context
 1. **Integración con CRM**: Sincronización automática de leads calificados con sistema CRM empresarial
 2. **Análisis de sentimiento**: Incorporación de evaluación de tono emocional en comunicaciones
 3. **Aprendizaje continuo**: Implementación de feedback loops para optimización de thresholds
-4. **Procesamiento multimodal**: Extensión para análisis de documentos adjuntos (PDFs, imágenes)
-5. **API REST**: Exposición del sistema como servicio para integración con otros sistemas
+4. **API REST**: Exposición del sistema como servicio para integración con otros sistemas
+5. **Procesamiento batch**: Capacidad de procesar múltiples archivos simultáneamente
 
-### 8.2 Optimizaciones Potenciales
+### 8.2 Extensiones Implementadas
+
+1. **✅ Procesamiento multi-modal**: Sistema ahora soporta PDFs e imágenes mediante envío directo a modelos de OpenAI sin bibliotecas de extracción externas
+
+### 8.3 Optimizaciones Potenciales
 
 1. **Caching de resultados**: Implementación de cache para comunicaciones similares
 2. **Procesamiento paralelo**: Ejecución concurrente de pipelines independientes
@@ -523,6 +607,8 @@ La arquitectura modular permite reutilizar agentes individuales en otros context
 Hemos desarrollado e implementado exitosamente un sistema automatizado de procesamiento y enrutamiento de comunicaciones empresariales basado en una arquitectura multiagente. El sistema resuelve problemas críticos de eficiencia operativa, consistencia en evaluación y seguridad de contenido, proporcionando valor agregado cuantificable en múltiples dimensiones.
 
 La arquitectura modular y las herramientas de visualización automática garantizan la mantenibilidad y escalabilidad del sistema a largo plazo. Los algoritmos de scoring implementados proporcionan evaluaciones objetivas y consistentes de candidatos y oportunidades comerciales.
+
+La extensión multi-modal del sistema permite procesar archivos PDF e imágenes directamente, ampliando significativamente las capacidades del router sin introducir dependencias externas complejas. Esta funcionalidad aprovecha las capacidades nativas de los modelos de OpenAI para análisis de documentos y visión por computadora, manteniendo la arquitectura simple y mantenible.
 
 El sistema representa un caso de estudio relevante sobre la aplicación práctica de arquitecturas multiagente en contextos empresariales reales, demostrando la viabilidad técnica y el valor de negocio de la automatización inteligente de procesos.
 
@@ -548,7 +634,7 @@ OPENAI_API_KEY=tu_api_key_aqui
 ### 10.3 Ejecución del Sistema
 
 ```bash
-# Procesar comunicación desde archivo
+# Procesar comunicación desde archivo (soporta .txt, .pdf, .png, .jpg, .jpeg, .gif, .webp)
 python router.py
 ```
 

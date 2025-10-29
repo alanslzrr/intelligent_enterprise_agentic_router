@@ -4,18 +4,20 @@ Complete implementation with Pydantic schemas, context management, and proper SD
 """
 
 import asyncio
+import base64
 import json
 import os
 import sys
 from dataclasses import dataclass
 from pathlib import Path
-from typing import List, Literal, Optional
+from typing import List, Literal, Optional, Union
 
 from dotenv import load_dotenv
 from pydantic import BaseModel, Field
 
 from agents import Agent, ModelSettings, RunConfig, Runner, AgentOutputSchema, RunHooks
 from agents.run import RunContextWrapper
+from openai import OpenAI
 from openai.types.shared import Reasoning
 
 # Cargar variables de entorno desde .env
@@ -875,8 +877,173 @@ guardrails_block_packager = Agent[RouterContext](
 
 @dataclass
 class WorkflowInput:
-    """Single text input for the router."""
-    input_as_text: str
+    """Input for the router - supports text, images, and PDFs."""
+    input_as_text: Optional[str] = None
+    input_messages: Optional[List[dict]] = None  # For multi-modal inputs (images, PDFs)
+    
+    def __post_init__(self):
+        """Validate that at least one input type is provided."""
+        if not self.input_as_text and not self.input_messages:
+            raise ValueError("Either input_as_text or input_messages must be provided")
+
+
+# ================================================================================
+# FILE PROCESSING UTILITIES
+# ================================================================================
+
+def encode_file_to_base64(file_path: Path) -> str:
+    """
+    Read a file and encode it to base64 string.
+    
+    Args:
+        file_path: Path to the file to encode
+        
+    Returns:
+        Base64 encoded string
+    """
+    with open(file_path, "rb") as f:
+        data = f.read()
+    return base64.b64encode(data).decode("utf-8")
+
+
+def create_pdf_input_base64(file_path: Path, user_query: str) -> List[dict]:
+    """
+    Create input messages for PDF file using base64 encoding (no external libraries).
+    
+    Args:
+        file_path: Path to the PDF file
+        user_query: The question/instruction to accompany the PDF
+        
+    Returns:
+        List of message dicts formatted for Agent SDK
+    """
+    base64_string = encode_file_to_base64(file_path)
+    
+    return [
+        {
+            "role": "user",
+            "content": [
+                {
+                    "type": "input_file",
+                    "filename": file_path.name,
+                    "file_data": f"data:application/pdf;base64,{base64_string}",
+                },
+                {
+                    "type": "input_text",
+                    "text": user_query,
+                },
+            ],
+        },
+    ]
+
+
+def create_pdf_input_file_id(file_path: Path, user_query: str, client: OpenAI) -> List[dict]:
+    """
+    Create input messages for PDF file using OpenAI file upload (alternative method).
+    
+    Args:
+        file_path: Path to the PDF file
+        user_query: The question/instruction to accompany the PDF
+        client: OpenAI client instance
+        
+    Returns:
+        List of message dicts formatted for Agent SDK
+    """
+    file = client.files.create(file=open(file_path, "rb"), purpose="user_data")
+    
+    return [
+        {
+            "role": "user",
+            "content": [
+                {
+                    "type": "input_file",
+                    "file_id": file.id,
+                },
+                {
+                    "type": "input_text",
+                    "text": user_query,
+                },
+            ],
+        },
+    ]
+
+
+def create_image_input(file_path: Path, user_query: str) -> List[dict]:
+    """
+    Create input messages for image file using base64 encoding.
+    
+    Args:
+        file_path: Path to the image file
+        user_query: The question/instruction to accompany the image
+        
+    Returns:
+        List of message dicts formatted for Agent SDK
+    """
+    base64_string = encode_file_to_base64(file_path)
+    
+    # Detect image MIME type from extension
+    ext = file_path.suffix.lower()
+    mime_types = {
+        ".png": "image/png",
+        ".jpg": "image/jpeg",
+        ".jpeg": "image/jpeg",
+        ".gif": "image/gif",
+        ".webp": "image/webp",
+    }
+    mime_type = mime_types.get(ext, "image/png")
+    
+    return [
+        {
+            "role": "user",
+            "content": [
+                {
+                    "type": "input_image",
+                    "image_url": f"data:{mime_type};base64,{base64_string}",
+                },
+                {
+                    "type": "input_text",
+                    "text": user_query,
+                },
+            ],
+        },
+    ]
+
+
+def create_workflow_input_from_file(file_path: Path, user_query: str = "Analyze this document and extract all relevant information.") -> WorkflowInput:
+    """
+    Create a WorkflowInput from any supported file type.
+    
+    Supported formats:
+    - .txt: Plain text
+    - .pdf: PDF documents (sent as base64)
+    - .png, .jpg, .jpeg, .gif, .webp: Images
+    
+    Args:
+        file_path: Path to the file
+        user_query: Optional query/instruction to accompany the file
+        
+    Returns:
+        WorkflowInput instance ready for processing
+    """
+    ext = file_path.suffix.lower()
+    
+    # Handle text files (legacy behavior)
+    if ext == ".txt":
+        text = file_path.read_text(encoding="utf-8").strip()
+        return WorkflowInput(input_as_text=text)
+    
+    # Handle PDF files
+    elif ext == ".pdf":
+        messages = create_pdf_input_base64(file_path, user_query)
+        return WorkflowInput(input_messages=messages)
+    
+    # Handle image files
+    elif ext in [".png", ".jpg", ".jpeg", ".gif", ".webp"]:
+        messages = create_image_input(file_path, user_query)
+        return WorkflowInput(input_messages=messages)
+    
+    else:
+        raise ValueError(f"Unsupported file type: {ext}. Supported: .txt, .pdf, .png, .jpg, .jpeg, .gif, .webp")
 
 
 def serialize_for_llm(data: BaseModel | dict | str) -> str:
@@ -962,7 +1129,7 @@ class TerminalRunHooks(RunHooks[RouterContext]):
 
 async def run_agent_with_logs(
     agent: Agent[RouterContext],
-    inp: str,
+    inp: Union[str, List[dict]],
     *,
     context: RouterContext,
     run_config: RunConfig,
@@ -970,11 +1137,36 @@ async def run_agent_with_logs(
 ):
     """
     Helper que envuelve Runner.run para mostrar input/output de cada agente.
+    Soporta tanto entradas de texto simple como mensajes multi-modales.
     """
-    # Mostrar INPUT exactamente como lo consumes
-    print(f"\n>>> INPUT → {agent.name}:\n{inp if isinstance(inp, str) else serialize_for_llm(inp)}")
+    # Mostrar INPUT de manera apropiada según el tipo
+    if isinstance(inp, list):
+        # Multi-modal input (images, PDFs)
+        print(f"\n>>> INPUT → {agent.name}:")
+        print("[MULTI-MODAL INPUT - Messages with files]")
+        # Show simplified version to avoid printing large base64 strings
+        for msg in inp:
+            if isinstance(msg, dict) and "content" in msg:
+                content_items = msg.get("content", [])
+                print(f"  Role: {msg.get('role', 'user')}")
+                for item in content_items:
+                    if isinstance(item, dict):
+                        item_type = item.get("type", "unknown")
+                        if item_type == "input_file":
+                            filename = item.get("filename", "file")
+                            print(f"    - File: {filename}")
+                        elif item_type == "input_image":
+                            print(f"    - Image (base64)")
+                        elif item_type == "input_text":
+                            text = item.get("text", "")
+                            print(f"    - Text: {text[:100]}...")
+    else:
+        # Text input
+        print(f"\n>>> INPUT → {agent.name}:\n{inp if isinstance(inp, str) else serialize_for_llm(inp)}")
+    
     result = await Runner.run(agent, inp, context=context, run_config=run_config, hooks=hooks)
     out = result.final_output
+    
     # Mostrar OUTPUT estructurado y legible
     if isinstance(out, BaseModel):
         printable = json.dumps(out.model_dump(by_alias=True), ensure_ascii=False, indent=2)
@@ -993,6 +1185,8 @@ async def run_workflow_async(workflow: WorkflowInput) -> dict:
     2. Intent classification
     3. Branch by category (cv/sales/event/other)
     4. Generate drafts and package final output
+    
+    Supports both text and multi-modal inputs (images, PDFs).
     """
     
     # Initialize context with CONFIG
@@ -1010,12 +1204,20 @@ async def run_workflow_async(workflow: WorkflowInput) -> dict:
         }
     )
     
+    # Determine input type and prepare for guardrails
+    # For multi-modal inputs (images/PDFs), we send the messages directly
+    # For text inputs, we send the text string
+    if workflow.input_messages:
+        initial_input = workflow.input_messages
+    else:
+        initial_input = workflow.input_as_text
+    
     # ============================================================
     # STEP 1: Guardrails
     # ============================================================
     gr_result = await run_agent_with_logs(
         guardrails_agent,
-        workflow.input_as_text,
+        initial_input,
         context=context,
         run_config=run_config,
         hooks=hooks,
@@ -1266,50 +1468,71 @@ async def run_workflow_async(workflow: WorkflowInput) -> dict:
 # ================================================================================
 
 def main():
-    """CLI entry point with interactive .txt file selection."""
-    # Listar archivos .txt en el directorio actual
+    """CLI entry point with interactive file selection - supports .txt, .pdf, and image files."""
     script_dir = Path(__file__).parent
-    txt_files = sorted(script_dir.glob("*.txt"))
     
-    if not txt_files:
+    # Listar archivos soportados en el directorio actual
+    supported_extensions = ["*.txt", "*.pdf", "*.png", "*.jpg", "*.jpeg", "*.gif", "*.webp"]
+    all_files = []
+    for pattern in supported_extensions:
+        all_files.extend(script_dir.glob(pattern))
+    
+    # Ordenar archivos por nombre
+    all_files = sorted(all_files)
+    
+    if not all_files:
         print(json.dumps({
-            "error": "No se encontraron archivos .txt en el directorio actual."
+            "error": "No se encontraron archivos soportados (.txt, .pdf, .png, .jpg, .jpeg, .gif, .webp) en el directorio actual."
         }, indent=2))
         sys.exit(1)
     
-    # Mostrar menú numerado
-    print("\n=== Selecciona un archivo .txt para procesar ===")
-    for idx, fpath in enumerate(txt_files, start=1):
-        print(f"{idx}. {fpath.name}")
+    # Mostrar menú numerado con tipo de archivo
+    print("\n=== Selecciona un archivo para procesar ===")
+    for idx, fpath in enumerate(all_files, start=1):
+        file_type = fpath.suffix.upper()[1:]  # Remove the dot and uppercase
+        print(f"{idx}. {fpath.name} [{file_type}]")
     print()
     
     # Leer selección del usuario
     try:
         choice = int(input("Ingresa el número del archivo: "))
-        if choice < 1 or choice > len(txt_files):
+        if choice < 1 or choice > len(all_files):
             print("Selección inválida.")
             sys.exit(1)
-        selected_file = txt_files[choice - 1]
+        selected_file = all_files[choice - 1]
     except (ValueError, KeyboardInterrupt):
         print("\nCancelado.")
         sys.exit(1)
     
-    # Leer contenido del archivo seleccionado
+    # Crear WorkflowInput según el tipo de archivo
     try:
-        text = selected_file.read_text(encoding="utf-8").strip()
+        print(f"\n[Procesando: {selected_file.name}]\n")
+        
+        # For non-text files, ask for optional user query
+        if selected_file.suffix.lower() != ".txt":
+            print("Puedes proporcionar una pregunta/instrucción específica para el archivo,")
+            print("o presiona Enter para usar la consulta predeterminada.")
+            user_query = input("Tu pregunta (opcional): ").strip()
+            
+            if not user_query:
+                user_query = "Analiza este documento y extrae toda la información relevante."
+            
+            workflow = create_workflow_input_from_file(selected_file, user_query)
+        else:
+            # Legacy text file handling
+            text = selected_file.read_text(encoding="utf-8").strip()
+            if not text:
+                print(json.dumps({
+                    "error": f"El archivo {selected_file.name} está vacío."
+                }, indent=2))
+                sys.exit(1)
+            workflow = WorkflowInput(input_as_text=text)
+            
     except Exception as e:
-        print(json.dumps({"error": f"Error al leer {selected_file.name}: {e}"}, indent=2))
-        sys.exit(1)
-    
-    if not text:
-        print(json.dumps({
-            "error": f"El archivo {selected_file.name} está vacío."
-        }, indent=2))
+        print(json.dumps({"error": f"Error al procesar {selected_file.name}: {e}"}, indent=2))
         sys.exit(1)
     
     # Ejecutar workflow
-    print(f"\n[Procesando: {selected_file.name}]\n")
-    workflow = WorkflowInput(input_as_text=text)
     result = asyncio.run(run_workflow_async(workflow))
     
     # Output result
