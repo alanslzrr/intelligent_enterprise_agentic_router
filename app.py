@@ -38,6 +38,11 @@ static_path = Path(__file__).parent / "static"
 static_path.mkdir(exist_ok=True)
 app.mount("/static", StaticFiles(directory=static_path), name="static")
 
+# Mount src directory for assets
+src_path = Path(__file__).parent / "src"
+if src_path.exists():
+    app.mount("/src", StaticFiles(directory=src_path), name="src")
+
 # Data directory
 DATA_DIR = Path(__file__).parent / "data"
 

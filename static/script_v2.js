@@ -25,11 +25,16 @@ function initializeTheme() {
     document.documentElement.classList.toggle('dark', currentTheme === 'dark');
     
     const themeToggle = document.getElementById('themeToggle');
-    themeToggle.addEventListener('click', () => {
-        currentTheme = currentTheme === 'light' ? 'dark' : 'light';
-        document.documentElement.classList.toggle('dark', currentTheme === 'dark');
-        localStorage.setItem('theme', currentTheme);
-    });
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+            document.documentElement.classList.toggle('dark', currentTheme === 'dark');
+            localStorage.setItem('theme', currentTheme);
+            console.log('Theme changed to:', currentTheme);
+        });
+    } else {
+        console.error('Theme toggle button not found');
+    }
 }
 
 // Tab Management

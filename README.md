@@ -579,7 +579,7 @@ Esta arquitectura permite modificar comportamientos del sistema ajustando única
 
 ### 7.8 Configuración de Modelos
 
-Todos los agentes utilizan el modelo `gpt-4o-mini` con configuraciones optimizadas:
+Todos los agentes utilizan el modelo `GPT-5-mini-mini` con configuraciones optimizadas:
 
 - **Reasoning effort**: low (optimización de costos para tareas estructuradas)
 - **Verbosity**: low (respuestas concisas y directas)
@@ -888,7 +888,7 @@ Output:
 **Costos de API**:
 - Cada procesamiento consume créditos de API de OpenAI
 - Modelos más potentes (gpt-4) incrementarían significativamente los costos
-- **Mitigación actual**: Uso de gpt-4o-mini con reasoning effort: low para optimización
+- **Mitigación actual**: Uso de GPT-5-mini-mini con reasoning effort: low para optimización
 
 **Procesamiento Secuencial**:
 - Actualmente el sistema procesa comunicaciones una a una

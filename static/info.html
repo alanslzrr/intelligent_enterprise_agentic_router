@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OCEANIX - Información del Sistema</title>
+    <link rel="stylesheet" href="/static/info-styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <img src="/src/public/oceanix.png" alt="Oceanix Logo" class="nav-logo">
+                <span class="nav-title">OCEANIX</span>
+            </div>
+            <div class="nav-links">
+                <a href="/static/index.html" class="nav-link">Volver a la Aplicación</a>
+                <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema">
+                    <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Sistema Inteligente de Routing Empresarial</h1>
+            <p class="hero-subtitle">Automatización avanzada con arquitectura multiagente para OCEANIX Galicia S.A.</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-container">
+        <!-- Main Content Area -->
+        <div class="content-wrapper">
+        <!-- Section 1: About OCEANIX -->
+        <section class="content-section" id="oceanix-info">
+            <div class="section-header">
+                <div class="section-icon ocean-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 12h4l3 9 4-18 3 9h4"></path>
+                    </svg>
+                </div>
+                <div>
+                    <h2 class="section-title">¿Qué es OCEANIX Galicia S.A.?</h2>
+                    <p class="section-description">Empresa líder en productos del mar con presencia integral</p>
+                </div>
+            </div>
+
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <svg class="info-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="3" y1="9" x2="21" y2="9"></line>
+                            <line x1="9" y1="21" x2="9" y2="9"></line>
+                        </svg>
+                        <h3>Identidad Corporativa</h3>
+                    </div>
+                    <div class="info-content">
+                        <p><strong>OCEANIX Galicia S.A.</strong> es una empresa pesquera integrada fundada en <strong>2006</strong> con sede en <strong>Vigo, Galicia, España</strong>. Especializados en la captura, procesamiento y comercialización de productos del mar, operamos bajo el compromiso de ofrecer calidad máxima con trazabilidad completa desde la captura hasta el cliente final.</p>
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <div class="stat-number">980</div>
+                                <div class="stat-label">Empleados</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">74M€</div>
+                                <div class="stat-label">Facturación Anual</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">19+</div>
+                                <div class="stat-label">Años de Experiencia</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <svg class="info-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                            <path d="M2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                        </svg>
+                        <h3>Infraestructura</h3>
+                    </div>
+                    <div class="info-content">
+                        <ul class="feature-list">
+                            <li>
+                                <strong>Flota Pesquera:</strong> 4 buques arrastreros de altura con base en Vigo
+                                <ul class="sub-list">
+                                    <li>Perla (480 ton) • Silenciosa María (550 ton)</li>
+                                    <li>Holandés Errante (600 ton) • Endeavour (500 ton)</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <strong>Plantas de Procesamiento:</strong> 2 instalaciones (Ribeira y Burela)
+                                <ul class="sub-list">
+                                    <li>Capacidad: 130 toneladas/día combinadas</li>
+                                    <li>350 empleados especializados</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <strong>Plantas de Envasado:</strong> 2 centros (Vigo y A Coruña)
+                                <ul class="sub-list">
+                                    <li>460 empleados en producción</li>
+                                    <li>Tecnología de atmósfera modificada y enlatado</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <strong>Logística:</strong> 25 camiones frigoríficos
+                                <ul class="sub-list">
+                                    <li>Cobertura: Galicia, Norte de España, Portugal</li>
+                                    <li>Control de temperatura 24/7</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <svg class="info-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12 6 12 12 16 14"></polyline>
+                        </svg>
+                        <h3>Líneas de Producto</h3>
+                    </div>
+                    <div class="info-content">
+                        <div class="product-tags">
+                            <span class="tag">Pescado Fresco</span>
+                            <span class="tag">Pescado Congelado</span>
+                            <span class="tag">Conservas y Enlatados</span>
+                            <span class="tag">Preparados de Valor Añadido</span>
+                            <span class="tag">Subproductos Industriales</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <svg class="info-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                        </svg>
+                        <h3>Certificaciones de Calidad</h3>
+                    </div>
+                    <div class="info-content">
+                        <ul class="cert-list">
+                            <li><span class="cert-badge">✓</span> ISO 22000 – Seguridad Alimentaria</li>
+                            <li><span class="cert-badge">✓</span> MSC – Pesca Sostenible</li>
+                            <li><span class="cert-badge">✓</span> IFS Food – Estándar Internacional</li>
+                            <li><span class="cert-badge">✓</span> Trazabilidad Completa por Lote</li>
+                            <li><span class="cert-badge">✓</span> Control de Temperatura 24/7</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: System Operation -->
+        <section class="content-section system-section" id="sistema-info">
+            <div class="section-header">
+                <div class="section-icon tech-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                        <line x1="8" y1="21" x2="16" y2="21"></line>
+                        <line x1="12" y1="17" x2="12" y2="21"></line>
+                    </svg>
+                </div>
+                <div>
+                    <h2 class="section-title">Funcionamiento del Sistema de Routing Inteligente</h2>
+                    <p class="section-description">Arquitectura multiagente con IA para procesamiento automatizado de comunicaciones</p>
+                </div>
+            </div>
+
+            <!-- System Overview -->
+            <div class="system-overview" id="vision-general">
+                <h3 class="subsection-title">Visión General</h3>
+                <p class="overview-text">
+                    Nuestro sistema utiliza una <strong>arquitectura multiagente basada en inteligencia artificial</strong> para clasificar, analizar y direccionar automáticamente las comunicaciones empresariales que recibe OCEANIX. El sistema procesa candidaturas de empleo, consultas comerciales, propuestas de eventos y otras comunicaciones, enrutándolas al departamento apropiado con evaluaciones objetivas.
+                </p>
+                <div class="capability-grid">
+                    <div class="capability-card">
+                        <div class="capability-number">15</div>
+                        <div class="capability-label">Agentes Especializados</div>
+                    </div>
+                    <div class="capability-card">
+                        <div class="capability-number">4</div>
+                        <div class="capability-label">Tipos de Comunicaciones</div>
+                    </div>
+                    <div class="capability-card">
+                        <div class="capability-number">100%</div>
+                        <div class="capability-label">Trazabilidad</div>
+                    </div>
+                    <div class="capability-card">
+                        <div class="capability-number">&lt;5s</div>
+                        <div class="capability-label">Tiempo de Procesamiento</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Processing Flow -->
+            <div class="flow-section" id="flujo-procesamiento">
+                <h3 class="subsection-title">Flujo de Procesamiento</h3>
+                
+                <div class="flow-card" id="guardrails">
+                    <div class="flow-number">1</div>
+                    <div class="flow-content">
+                        <h4 class="flow-title">Guardrails de Seguridad</h4>
+                        <p class="flow-description">
+                            Antes de procesar cualquier comunicación, el sistema aplica <strong>filtros de seguridad automáticos</strong> para garantizar la protección de datos y la calidad del contenido:
+                        </p>
+                        <ul class="flow-list">
+                            <li><strong>Moderación de Contenido:</strong> Detecta y bloquea contenido violento, sexual, discurso de odio, acoso, actividades ilegales o autolesiones</li>
+                            <li><strong>Protección de Datos Personales (PII):</strong> Identifica y redacta automáticamente números de teléfono, direcciones físicas y números de identificación nacional (manteniendo emails para comunicación)</li>
+                            <li><strong>Detección de Jailbreaking:</strong> Identifica intentos de manipular al sistema con frases como "ignora instrucciones anteriores" o "desactiva tus reglas"</li>
+                        </ul>
+                        <div class="flow-result">
+                            <strong>Resultado:</strong> Si se detecta cualquier problema de seguridad, el mensaje se bloquea automáticamente y se marca para revisión manual.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flow-card" id="clasificacion">
+                    <div class="flow-number">2</div>
+                    <div class="flow-content">
+                        <h4 class="flow-title">Clasificación de Intención</h4>
+                        <p class="flow-description">
+                            Un agente especializado analiza el contenido y determina automáticamente la naturaleza de la comunicación:
+                        </p>
+                        <div class="intent-grid">
+                            <div class="intent-card">
+                                <div class="intent-icon">
+                                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                        <polyline points="14 2 14 8 20 8"></polyline>
+                                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                                        <polyline points="10 9 9 9 8 9"></polyline>
+                                    </svg>
+                                </div>
+                                <div class="intent-name">CV / Candidatura</div>
+                                <div class="intent-desc">Solicitudes de empleo y currículums</div>
+                            </div>
+                            <div class="intent-card">
+                                <div class="intent-icon">
+                                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                                        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                                    </svg>
+                                </div>
+                                <div class="intent-name">Consulta Comercial</div>
+                                <div class="intent-desc">Pedidos, presupuestos, solicitudes de productos</div>
+                            </div>
+                            <div class="intent-card">
+                                <div class="intent-icon">
+                                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                                    </svg>
+                                </div>
+                                <div class="intent-name">Evento / Alianza</div>
+                                <div class="intent-desc">Ferias, congresos, colaboraciones</div>
+                            </div>
+                            <div class="intent-card">
+                                <div class="intent-icon">
+                                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                                    </svg>
+                                </div>
+                                <div class="intent-name">Otra</div>
+                                <div class="intent-desc">Consultas generales o sin clasificar</div>
+                            </div>
+                        </div>
+                        <p class="flow-note">
+                            El sistema también detecta el <strong>idioma</strong> (español, inglés, portugués, francés) y calcula un <strong>nivel de confianza</strong> (0-100%) de la clasificación.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flow-card" id="procesamiento">
+                    <div class="flow-number">3</div>
+                    <div class="flow-content">
+                        <h4 class="flow-title">Procesamiento Especializado</h4>
+                        <p class="flow-description">
+                            Según la clasificación, el sistema activa uno de tres pipelines especializados:
+                        </p>
+
+                        <!-- CV Pipeline -->
+                        <div class="pipeline-detail">
+                            <h5 class="pipeline-title">
+                                <svg class="pipeline-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                </svg>
+                                Pipeline de Candidaturas (CV)
+                            </h5>
+                            
+                            <div class="pipeline-step">
+                                <strong>Paso 3A: Extracción de Datos del Candidato</strong>
+                                <p>El sistema extrae automáticamente:</p>
+                                <ul>
+                                    <li>Nombre completo, email, teléfono y ubicación</li>
+                                    <li>Años de experiencia profesional total</li>
+                                    <li>Lista de habilidades técnicas (ej: navegación, mecánica naval, HACCP, trazabilidad)</li>
+                                    <li>Certificaciones obtenidas (ej: Capitán Marina Mercante, Manipulador de Alimentos, ISO 22000)</li>
+                                    <li>Departamento objetivo inferido (flota, producción, calidad, logística, comercial, IT)</li>
+                                    <li>Puesto deseado y disponibilidad</li>
+                                </ul>
+                            </div>
+
+                            <div class="pipeline-step">
+                                <strong>Paso 3B: Matching con Vacantes Disponibles</strong>
+                                <p>El sistema compara el perfil del candidato con nuestras <strong>12 vacantes activas</strong> usando un algoritmo de puntuación de 100 puntos:</p>
+                                
+                                <div class="scoring-breakdown">
+                                    <div class="score-item">
+                                        <div class="score-weight">40 puntos</div>
+                                        <div class="score-desc">
+                                            <strong>Coincidencia de Habilidades</strong><br>
+                                            Porcentaje de habilidades requeridas que posee el candidato
+                                        </div>
+                                    </div>
+                                    <div class="score-item">
+                                        <div class="score-weight">30 puntos</div>
+                                        <div class="score-desc">
+                                            <strong>Experiencia Profesional</strong><br>
+                                            • Cumple mínimo requerido: +10 puntos<br>
+                                            • Supera por 1 año: +5 puntos adicionales<br>
+                                            • Supera por 2 años: +10 puntos adicionales<br>
+                                            • Supera por 5+ años: +15 puntos adicionales
+                                        </div>
+                                    </div>
+                                    <div class="score-item">
+                                        <div class="score-weight">20 puntos</div>
+                                        <div class="score-desc">
+                                            <strong>Certificaciones</strong><br>
+                                            • Certificación del sector requerida: +20 puntos<br>
+                                            • Seguridad alimentaria: +15 puntos<br>
+                                            • Estándares internacionales: +10 puntos
+                                        </div>
+                                    </div>
+                                    <div class="score-item">
+                                        <div class="score-weight">10 puntos</div>
+                                        <div class="score-desc">
+                                            <strong>Bonus por Idioma</strong><br>
+                                            • Español: +10 puntos<br>
+                                            • Inglés/Portugués: +7 puntos<br>
+                                            • Otros: +5 puntos
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="threshold-info">
+                                    <p><strong>Umbrales de Decisión:</strong></p>
+                                    <ul>
+                                        <li><span class="threshold-badge high">≥85 puntos</span> Alta confianza – Recomendación fuerte</li>
+                                        <li><span class="threshold-badge medium">70-84 puntos</span> Apto – Derivar a RRHH</li>
+                                        <li><span class="threshold-badge low">&lt;70 puntos</span> No cumple requisitos mínimos</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="pipeline-step">
+                                <strong>Paso 3C: Generación de Respuesta</strong>
+                                <p>El sistema genera automáticamente:</p>
+                                <ul>
+                                    <li><strong>Si hay match (≥70 puntos):</strong> Email de agradecimiento al candidato + briefing interno para RRHH con puntuación detallada</li>
+                                    <li><strong>Si no hay match (&lt;70 puntos):</strong> Email de rechazo cordial indicando que no hay vacantes apropiadas actualmente</li>
+                                </ul>
+                            </div>
+
+                            <div class="vacancies-list">
+                                <h6>Nuestras Vacantes Activas (12 puestos):</h6>
+                                <div class="vacancy-grid">
+                                    <div class="vacancy-item">
+                                        <strong>Flota Pesquera:</strong>
+                                        <span>Capitán de Barco, Oficial de Máquinas</span>
+                                    </div>
+                                    <div class="vacancy-item">
+                                        <strong>Producción:</strong>
+                                        <span>Jefe de Planta, Operario de Fileteado, Supervisor de Envasado</span>
+                                    </div>
+                                    <div class="vacancy-item">
+                                        <strong>Calidad:</strong>
+                                        <span>Técnico de Calidad Alimentaria, Inspector de Trazabilidad</span>
+                                    </div>
+                                    <div class="vacancy-item">
+                                        <strong>Logística:</strong>
+                                        <span>Responsable de Distribución, Conductor Camión Frigorífico</span>
+                                    </div>
+                                    <div class="vacancy-item">
+                                        <strong>Comercial:</strong>
+                                        <span>Account Manager HoReCa, Export Manager</span>
+                                    </div>
+                                    <div class="vacancy-item">
+                                        <strong>IT:</strong>
+                                        <span>Técnico de Sistemas (ERP/Trazabilidad)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sales Pipeline -->
+                        <div class="pipeline-detail">
+                            <h5 class="pipeline-title">
+                                <svg class="pipeline-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                                </svg>
+                                Pipeline de Ventas (Sales)
+                            </h5>
+                            
+                            <div class="pipeline-step">
+                                <strong>Paso 3A: Extracción y Calificación del Lead</strong>
+                                <p>El sistema extrae y evalúa automáticamente cada consulta comercial con un sistema de puntuación de 100 puntos:</p>
+                                
+                                <div class="scoring-breakdown">
+                                    <div class="score-item">
+                                        <div class="score-weight">15 puntos</div>
+                                        <div class="score-desc">
+                                            <strong>Dominio Corporativo</strong><br>
+                                            Email empresarial (no Gmail, Yahoo, Hotmail)
+                                        </div>
+                                    </div>
+                                    <div class="score-item">
+                                        <div class="score-weight">25 puntos</div>
+                                        <div class="score-desc">
+                                            <strong>Compromiso de Volumen</strong><br>
+                                            Mención explícita de toneladas/mes, frecuencia de pedidos o contrato de volumen
+                                        </div>
+                                    </div>
+                                    <div class="score-item">
+                                        <div class="score-weight">20 puntos</div>
+                                        <div class="score-desc">
+                                            <strong>Timeline Claro</strong><br>
+                                            Marco temporal específico (Q1, este mes, &lt;8 semanas, inicio temporada)
+                                        </div>
+                                    </div>
+                                    <div class="score-item">
+                                        <div class="score-weight">20 puntos</div>
+                                        <div class="score-desc">
+                                            <strong>Decision Maker</strong><br>
+                                            Título ejecutivo: CEO, Director, Gerente, Responsable de Compras, Procurement, Supply Chain
+                                        </div>
+                                    </div>
+                                    <div class="score-item">
+                                        <div class="score-weight">20 puntos</div>
+                                        <div class="score-desc">
+                                            <strong>Certificaciones Requeridas</strong><br>
+                                            Menciona necesidad de IFS, MSC, ISO 22000 u otras certificaciones que poseemos
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="priority-info">
+                                    <p><strong>Clasificación por Prioridad:</strong></p>
+                                    <ul>
+                                        <li><span class="priority-badge a">Prioridad A</span> ≥80 puntos – Lead caliente, atención inmediata</li>
+                                        <li><span class="priority-badge b">Prioridad B</span> 50-79 puntos – Lead tibio, seguimiento normal</li>
+                                        <li><span class="priority-badge c">Prioridad C</span> &lt;50 puntos – Lead frío, evaluar viabilidad</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="pipeline-step">
+                                <strong>Información Extraída del Lead:</strong>
+                                <ul>
+                                    <li>Nombre de empresa y persona de contacto</li>
+                                    <li>Email y teléfono corporativo</li>
+                                    <li>Resumen de la intención comercial</li>
+                                    <li>Productos de interés (fresco, congelado, conservas, preparados)</li>
+                                    <li>Indicadores de presupuesto y timeline</li>
+                                    <li>Título/rol del contacto</li>
+                                </ul>
+                            </div>
+
+                            <div class="pipeline-step">
+                                <strong>Paso 3B: Generación de Respuesta</strong>
+                                <p>El sistema genera dos comunicaciones:</p>
+                                <ul>
+                                    <li><strong>Email interno al Departamento Comercial:</strong> Briefing ejecutivo con puntuación, prioridad y todos los datos clave del lead</li>
+                                    <li><strong>Email externo al cliente potencial:</strong> Agradecimiento profesional confirmando recepción de su consulta (sin compromisos prematuros)</li>
+                                </ul>
+                            </div>
+
+                            <div class="contracts-info">
+                                <h6>Nuestros Tipos de Contrato Comercial:</h6>
+                                <div class="contract-grid">
+                                    <div class="contract-card">
+                                        <div class="contract-name">Básico</div>
+                                        <div class="contract-target">Pequeños distribuidores, pescaderías locales</div>
+                                        <div class="contract-volume">5-20 ton/mes</div>
+                                        <div class="contract-terms">Pedidos flexibles, entrega regional</div>
+                                    </div>
+                                    <div class="contract-card">
+                                        <div class="contract-name">Profesional</div>
+                                        <div class="contract-target">Cadenas regionales, HoReCa</div>
+                                        <div class="contract-volume">50-200 ton/mes</div>
+                                        <div class="contract-terms">Contrato anual, entregas programadas</div>
+                                    </div>
+                                    <div class="contract-card">
+                                        <div class="contract-name">Enterprise</div>
+                                        <div class="contract-target">Grandes superficies, exportación</div>
+                                        <div class="contract-volume">&gt;300 ton/mes</div>
+                                        <div class="contract-terms">Contrato plurianual, marca blanca</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Events Pipeline -->
+                        <div class="pipeline-detail">
+                            <h5 class="pipeline-title">
+                                <svg class="pipeline-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                                </svg>
+                                Pipeline de Eventos y Otras Comunicaciones
+                            </h5>
+                            
+                            <div class="pipeline-step">
+                                <strong>Procesamiento de Eventos:</strong>
+                                <p>Para propuestas de ferias, congresos o alianzas, el sistema evalúa:</p>
+                                <ul>
+                                    <li><strong>Relevancia temática:</strong> ¿Está relacionado con pesca, acuicultura, seguridad alimentaria, sostenibilidad marina, logística de cadena de frío, trazabilidad, certificaciones o exportación?</li>
+                                    <li><strong>Alcance geográfico:</strong> Preferencia por eventos en España, UE, Galicia, Norte de España o LATAM</li>
+                                    <li><strong>Formato:</strong> Ferias comerciales, congresos técnicos, webinars, jornadas técnicas, networking o misiones comerciales</li>
+                                </ul>
+                                <p>El sistema extrae información del evento, evalúa su alineación con nuestros objetivos estratégicos y genera un email solicitando más detalles al organizador, mientras envía un briefing interno al Departamento de Marketing.</p>
+                            </div>
+
+                            <div class="pipeline-step">
+                                <strong>Otras Comunicaciones:</strong>
+                                <p>Para consultas generales que no encajan en las categorías anteriores, el sistema genera una respuesta neutra solicitando más contexto y enruta la consulta al buzón general de recepción.</p>
+                            </div>
+
+                            <div class="events-interest">
+                                <h6>Eventos de Alto Interés para OCEANIX:</h6>
+                                <div class="event-tags">
+                                    <span class="event-tag">Conxemar Vigo</span>
+                                    <span class="event-tag">Seafood Expo Global</span>
+                                    <span class="event-tag">Alimentaria Barcelona</span>
+                                    <span class="event-tag">Fish International Bremen</span>
+                                    <span class="event-tag">Seafood Summit</span>
+                                    <span class="event-tag">Foro Economía del Mar</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flow-card" id="enrutamiento">
+                    <div class="flow-number">4</div>
+                    <div class="flow-content">
+                        <h4 class="flow-title">Enrutamiento Final</h4>
+                        <p class="flow-description">
+                            El sistema asigna automáticamente cada comunicación procesada al departamento responsable:
+                        </p>
+                        <div class="routing-table">
+                            <div class="routing-row">
+                                <div class="routing-type">CV con Match ≥70 puntos</div>
+                                <div class="routing-arrow">→</div>
+                                <div class="routing-dest">Recursos Humanos (rrhh@oceanix-galicia.es)</div>
+                            </div>
+                            <div class="routing-row">
+                                <div class="routing-type">CV sin Match &lt;70 puntos</div>
+                                <div class="routing-arrow">→</div>
+                                <div class="routing-dest">Email de rechazo automático al candidato</div>
+                            </div>
+                            <div class="routing-row">
+                                <div class="routing-type">Consulta Comercial</div>
+                                <div class="routing-arrow">→</div>
+                                <div class="routing-dest">Departamento Comercial (comercial@oceanix-galicia.es)</div>
+                            </div>
+                            <div class="routing-row">
+                                <div class="routing-type">Evento / Alianza</div>
+                                <div class="routing-arrow">→</div>
+                                <div class="routing-dest">Marketing y Comunicación (marketing@oceanix-galicia.es)</div>
+                            </div>
+                            <div class="routing-row">
+                                <div class="routing-type">Otra Consulta</div>
+                                <div class="routing-arrow">→</div>
+                                <div class="routing-dest">Recepción General (info@oceanix-galicia.es)</div>
+                            </div>
+                            <div class="routing-row">
+                                <div class="routing-type">Bloqueado por Guardrails</div>
+                                <div class="routing-arrow">→</div>
+                                <div class="routing-dest">Marcado para revisión manual de seguridad</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Technical Benefits -->
+            <div class="benefits-section" id="beneficios">
+                <h3 class="subsection-title">Beneficios del Sistema</h3>
+                <div class="benefits-grid">
+                    <div class="benefit-card">
+                        <svg class="benefit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                        </svg>
+                        <h4>Velocidad</h4>
+                        <p>Procesamiento en menos de 5 segundos vs. 15-20 minutos manual</p>
+                    </div>
+                    <div class="benefit-card">
+                        <svg class="benefit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <h4>Consistencia</h4>
+                        <p>Criterios objetivos de evaluación aplicados uniformemente</p>
+                    </div>
+                    <div class="benefit-card">
+                        <svg class="benefit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        </svg>
+                        <h4>Seguridad</h4>
+                        <p>Detección automática de contenido inapropiado y protección de PII</p>
+                    </div>
+                    <div class="benefit-card">
+                        <svg class="benefit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="20" x2="18" y2="10"></line>
+                            <line x1="12" y1="20" x2="12" y2="4"></line>
+                            <line x1="6" y1="20" x2="6" y2="14"></line>
+                        </svg>
+                        <h4>Trazabilidad</h4>
+                        <p>Registro completo de cada decisión y puntuación</p>
+                    </div>
+                    <div class="benefit-card">
+                        <svg class="benefit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="2" y1="12" x2="22" y2="12"></line>
+                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                        </svg>
+                        <h4>Multilingüe</h4>
+                        <p>Procesamiento en español, inglés, portugués y francés</p>
+                    </div>
+                    <div class="benefit-card">
+                        <svg class="benefit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+                            <polyline points="13 2 13 9 20 9"></polyline>
+                        </svg>
+                        <h4>Multi-formato</h4>
+                        <p>Soporte nativo para texto, PDF e imágenes sin OCR externo</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Architecture -->
+            <div class="architecture-section" id="arquitectura">
+                <h3 class="subsection-title">Arquitectura Técnica</h3>
+                <div class="tech-stack">
+                    <div class="tech-item">
+                        <div class="tech-label">Framework Base</div>
+                        <div class="tech-value">OpenAI Agents SDK</div>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-label">API Backend</div>
+                        <div class="tech-value">FastAPI (Python)</div>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-label">Comunicación</div>
+                        <div class="tech-value">WebSocket (tiempo real)</div>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-label">Validación</div>
+                        <div class="tech-value">Pydantic Schemas</div>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-label">Agentes IA</div>
+                        <div class="tech-value">15 agentes especializados</div>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-label">Modelo</div>
+                        <div class="tech-value">GPT-5-mini (razonamiento avanzado)</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <div class="cta-content">
+                <h2 class="cta-title">¿Listo para probar el sistema?</h2>
+                <p class="cta-description">Accede a la aplicación y procesa comunicaciones en tiempo real</p>
+                <a href="/static/index.html" class="cta-button">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                    </svg>
+                    Ir a la Aplicación
+                </a>
+            </div>
+        </section>
+        </div>
+        <!-- End Content Wrapper -->
+
+        <!-- Table of Contents Sidebar -->
+        <aside class="toc-sidebar" id="tocSidebar">
+            <div class="toc-header">
+                <h3>Contenido</h3>
+            </div>
+            <nav class="toc-nav">
+                <a href="#oceanix-info" class="toc-link active" data-section="oceanix-info">
+                    <span class="toc-indicator"></span>
+                    <span class="toc-text">Sobre OCEANIX</span>
+                </a>
+                <a href="#sistema-info" class="toc-link" data-section="sistema-info">
+                    <span class="toc-indicator"></span>
+                    <span class="toc-text">Sistema de Routing</span>
+                </a>
+                <div class="toc-subsections">
+                    <a href="#vision-general" class="toc-sublink" data-section="vision-general">
+                        <span class="toc-text">Visión General</span>
+                    </a>
+                    <a href="#flujo-procesamiento" class="toc-sublink" data-section="flujo-procesamiento">
+                        <span class="toc-text">Flujo de Procesamiento</span>
+                    </a>
+                    <a href="#guardrails" class="toc-sublink" data-section="guardrails">
+                        <span class="toc-text">1. Guardrails</span>
+                    </a>
+                    <a href="#clasificacion" class="toc-sublink" data-section="clasificacion">
+                        <span class="toc-text">2. Clasificación</span>
+                    </a>
+                    <a href="#procesamiento" class="toc-sublink" data-section="procesamiento">
+                        <span class="toc-text">3. Procesamiento</span>
+                    </a>
+                    <a href="#enrutamiento" class="toc-sublink" data-section="enrutamiento">
+                        <span class="toc-text">4. Enrutamiento</span>
+                    </a>
+                    <a href="#beneficios" class="toc-sublink" data-section="beneficios">
+                        <span class="toc-text">Beneficios</span>
+                    </a>
+                    <a href="#arquitectura" class="toc-sublink" data-section="arquitectura">
+                        <span class="toc-text">Arquitectura</span>
+                    </a>
+                </div>
+            </nav>
+        </aside>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>OCEANIX Galicia S.A.</h4>
+                <p>Empresa Pesquera Integrada</p>
+                <p>Vigo, Galicia, España</p>
+            </div>
+            <div class="footer-section">
+                <h4>Contacto</h4>
+                <p>info@oceanix-galicia.es</p>
+                <p>comercial@oceanix-galicia.es</p>
+                <p>rrhh@oceanix-galicia.es</p>
+            </div>
+            <div class="footer-section">
+                <h4>Sistema</h4>
+                <p>Intelligent Enterprise Agentic Router</p>
+                <p>Tecnologías de Automatización y Robotización</p>
+                <p>© 2025 OCEANIX Galicia S.A.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/static/info-script.js"></script>
+</body>
+</html>
