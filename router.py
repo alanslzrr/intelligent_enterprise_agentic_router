@@ -1,6 +1,7 @@
 """
-MVP "Ticket Router" - OpenAI Agents SDK
-Complete implementation with Pydantic schemas, context management, and proper SDK usage.
+Sistema de Routing Inteligente para OCEANIX Galicia S.A.
+Implementación completa con esquemas Pydantic, gestión de contexto y OpenAI Agents SDK.
+Procesa solicitudes de empleo, consultas comerciales, eventos y consultas generales.
 """
 
 import asyncio
@@ -25,76 +26,198 @@ load_dotenv()
 
 
 # ================================================================================
-# CONFIGURATION - Complete canonical configuration
+# CONFIGURATION - Configuración completa para OCEANIX Galicia S.A.
 # ================================================================================
 
 CONFIG = {
     "COMPANY": {
-        "name": "Aurora Agentics",
-        "type": "AI Consulting",
-        "sector": "Agentic AI / Automations",
-        "mission": "Acelerar resultados con workflows agentic alineados a negocio",
-        "site_url": "https://aurora-agentics.test",
-        "careers_url": "https://aurora-agentics.test/careers",
-        "booking_url": "https://cal.aurora-agentics.test/sales"
+        "name": "OCEANIX Galicia S.A.",
+        "type": "Empresa Pesquera Integrada",
+        "sector": "Productos del Mar",
+        "mission": "Ofrecer productos del mar de máxima calidad con trazabilidad completa desde la captura hasta el cliente final",
+        "year_founded": 2006,
+        "location": "Vigo, Galicia, España",
+        "employees": 980,
+        "annual_revenue_eur": "74M",
+        "site_url": "https://oceanix-galicia.es",
+        "careers_url": "https://oceanix-galicia.es/trabaja-con-nosotros",
+        "commercial_contact_url": "https://oceanix-galicia.es/contacto-comercial"
     },
-    "SERVICIOS_CORE": [
-        "Discovery_Agentic",
-        "Sales_Automation",
-        "Customer_Care_Agent",
-        "Ops_RPA_Flows",
-        "Semantic_Workflows"
+    "INFRAESTRUCTURA": {
+        "flota": {
+            "cantidad": 4,
+            "tipo": "Buques arrastreros de altura",
+            "puerto_base": "Vigo",
+            "barcos": [
+                {"nombre": "Perla", "capacidad_ton": 480, "tripulacion": 24},
+                {"nombre": "Silenciosa María", "capacidad_ton": 550, "tripulacion": 28},
+                {"nombre": "Holandés Errante", "capacidad_ton": 600, "tripulacion": 30},
+                {"nombre": "Endeavour", "capacidad_ton": 500, "tripulacion": 25}
+            ]
+        },
+        "plantas_procesamiento": [
+            {"ubicacion": "Ribeira", "capacidad_dia_ton": 60, "empleados": 160, "funciones": ["recepcion", "limpieza", "fileteado"]},
+            {"ubicacion": "Burela", "capacidad_dia_ton": 70, "empleados": 190, "funciones": ["congelado", "subproductos"]}
+        ],
+        "plantas_envasado": [
+            {"ubicacion": "Vigo", "empleados": 280, "funciones": ["enlatados", "atmosfera_modificada", "vacio", "etiquetado"]},
+            {"ubicacion": "A Coruña", "empleados": 180, "funciones": ["preparados", "filetes_empanados"]}
+        ],
+        "logistica": {
+            "camiones_total": 25,
+            "camiones_largo_recorrido": 10,
+            "cobertura": ["Galicia", "Norte de España", "Portugal"]
+        }
+    },
+    "LINEAS_PRODUCTO": [
+        "Pescado_Fresco",
+        "Pescado_Congelado",
+        "Conservas_Enlatados",
+        "Preparados_Valor_Añadido",
+        "Subproductos_Industriales"
     ],
-    "VALOR_AGREGADO": [
-        "Safety_By_Design",
-        "Evals_Pack",
-        "Playbooks_Adopcion"
+    "CERTIFICACIONES_CALIDAD": [
+        "ISO_22000_Seguridad_Alimentaria",
+        "MSC_Pesca_Sostenible",
+        "IFS_Food_Estandar_Internacional",
+        "Trazabilidad_Completa_Lote",
+        "Control_Temperatura_24_7"
     ],
-    "PAQUETES_Y_PRECIOS": [
-        {"name": "Starter", "price_hint_eur": "25k-40k", "duration_weeks": "4-6"},
-        {"name": "Growth", "price_hint_eur": "60k-120k", "duration_weeks": "8-12"},
-        {"name": "Scale", "price_hint_eur": ">150k", "duration_weeks": "programa_anual"}
+    "CONTRATOS_COMERCIALES": [
+        {
+            "name": "Básico",
+            "target": "Pequeños distribuidores, pescaderías locales",
+            "volumen_mensual_ton": "5-20",
+            "condiciones": "Pedidos flexibles, entrega regional"
+        },
+        {
+            "name": "Profesional",
+            "target": "Cadenas regionales, HoReCa",
+            "volumen_mensual_ton": "50-200",
+            "condiciones": "Contrato anual, entregas programadas, cuenta dedicada"
+        },
+        {
+            "name": "Enterprise",
+            "target": "Grandes superficies, exportación",
+            "volumen_mensual_ton": ">300",
+            "condiciones": "Contrato plurianual, marca blanca, logística integrada"
+        }
     ],
     "VACANTES": [
         {
-            "role_id": "ENG-ML-01",
-            "dept": "Engineering",
-            "title": "Machine Learning Engineer",
-            "skills_req": ["python", "ml", "pandas", "apis"],
-            "min_exp": 2
+            "role_id": "FLOTA-CAP-01",
+            "dept": "Flota Pesquera",
+            "title": "Capitán de Barco Pesquero",
+            "skills_req": ["licencia_capitan", "navegacion", "gestion_tripulacion", "conocimiento_caladeros"],
+            "min_exp": 8,
+            "certifications_req": ["Capitán de la Marina Mercante", "Certificado STCW"]
         },
         {
-            "role_id": "ENG-FE-01",
-            "dept": "Engineering",
-            "title": "Frontend Engineer",
-            "skills_req": ["javascript", "react", "apis"],
-            "min_exp": 2
+            "role_id": "FLOTA-OFI-01",
+            "dept": "Flota Pesquera",
+            "title": "Oficial de Máquinas",
+            "skills_req": ["mecanica_naval", "refrigeracion", "mantenimiento_motores"],
+            "min_exp": 5,
+            "certifications_req": ["Oficial de Máquinas"]
         },
         {
-            "role_id": "CONS-AE-01",
-            "dept": "Sales",
-            "title": "Account Executive (AI Consulting)",
-            "skills_req": ["ventas", "crm", "negociación", "ai_consulting"],
-            "min_exp": 3
+            "role_id": "PROD-JEFE-01",
+            "dept": "Producción",
+            "title": "Jefe de Planta de Procesamiento",
+            "skills_req": ["gestion_produccion", "seguridad_alimentaria", "iso_22000", "gestion_equipos"],
+            "min_exp": 6,
+            "certifications_req": ["Curso de manipulador de alimentos superior"]
         },
         {
-            "role_id": "CONS-DS-01",
-            "dept": "Consulting",
-            "title": "AI Consultant / Data Scientist",
-            "skills_req": ["python", "ml", "llms", "prompt_engineering"],
-            "min_exp": 2
+            "role_id": "PROD-FIL-01",
+            "dept": "Producción",
+            "title": "Operario de Fileteado",
+            "skills_req": ["corte_pescado", "manipulacion_alimentos", "trabajo_cadena"],
+            "min_exp": 1,
+            "certifications_req": ["Manipulador de alimentos"]
+        },
+        {
+            "role_id": "PROD-SUP-01",
+            "dept": "Producción",
+            "title": "Supervisor de Envasado",
+            "skills_req": ["control_calidad", "gestion_linea_produccion", "etiquetado", "trazabilidad"],
+            "min_exp": 3,
+            "certifications_req": ["Manipulador de alimentos", "IFS Food"]
+        },
+        {
+            "role_id": "QUAL-TEC-01",
+            "dept": "Calidad",
+            "title": "Técnico de Calidad Alimentaria",
+            "skills_req": ["microbiologia", "haccp", "auditorias", "laboratorio"],
+            "min_exp": 3,
+            "certifications_req": ["Técnico en Calidad Alimentaria", "Auditor IFS/BRC"]
+        },
+        {
+            "role_id": "QUAL-INS-01",
+            "dept": "Calidad",
+            "title": "Inspector de Trazabilidad",
+            "skills_req": ["trazabilidad", "normativa_ue", "sistemas_gestion", "etiquetado"],
+            "min_exp": 2,
+            "certifications_req": ["Manipulador de alimentos"]
+        },
+        {
+            "role_id": "LOG-RESP-01",
+            "dept": "Logística",
+            "title": "Responsable de Distribución",
+            "skills_req": ["gestion_logistica", "optimizacion_rutas", "cadena_frio", "erp"],
+            "min_exp": 5,
+            "certifications_req": ["CAP (Certificado Aptitud Profesional)"]
+        },
+        {
+            "role_id": "LOG-COND-01",
+            "dept": "Logística",
+            "title": "Conductor Camión Frigorífico",
+            "skills_req": ["conduccion_camion", "control_temperatura", "rutas_internacionales"],
+            "min_exp": 2,
+            "certifications_req": ["Carnet C+E", "CAP", "ADR (opcional)"]
+        },
+        {
+            "role_id": "COM-AM-01",
+            "dept": "Comercial",
+            "title": "Account Manager HoReCa",
+            "skills_req": ["ventas_b2b", "sector_horeca", "negociacion", "crm"],
+            "min_exp": 3,
+            "certifications_req": []
+        },
+        {
+            "role_id": "COM-EXP-01",
+            "dept": "Comercial",
+            "title": "Export Manager",
+            "skills_req": ["comercio_internacional", "exportacion", "incoterms", "ingles_negociacion", "normativa_aduanas"],
+            "min_exp": 5,
+            "certifications_req": []
+        },
+        {
+            "role_id": "IT-SYS-01",
+            "dept": "IT",
+            "title": "Técnico de Sistemas (ERP/Trazabilidad)",
+            "skills_req": ["erp", "bases_datos", "sql", "redes", "soporte_tecnico"],
+            "min_exp": 3,
+            "certifications_req": []
         }
     ],
     "EVENTOS_INTERES": [
-        "GenAI_Summit",
-        "DataLeaders_Forum",
-        "SaaS_GTMs"
+        "Conxemar_Vigo",
+        "Seafood_Expo_Global",
+        "Alimentaria_Barcelona",
+        "Fish_International_Bremen",
+        "Seafood_Summit",
+        "Foro_Economia_del_Mar"
     ],
     "OWNERS": {
-        "hr": {"email": "talent@aurora-agentics.test", "name": "HR Team"},
-        "sales": {"email": "sales@aurora-agentics.test", "name": "Sales Ops"},
-        "events": {"email": "events@aurora-agentics.test", "name": "Alliances & Events"},
-        "other": {"email": "inbox@aurora-agentics.test", "name": "Front Desk"}
+        "hr": {"email": "rrhh@oceanix-galicia.es", "name": "Recursos Humanos"},
+        "sales": {"email": "comercial@oceanix-galicia.es", "name": "Departamento Comercial"},
+        "events": {"email": "marketing@oceanix-galicia.es", "name": "Marketing y Comunicación"},
+        "fleet": {"email": "flota@oceanix-galicia.es", "name": "Gestión de Flota"},
+        "production": {"email": "produccion@oceanix-galicia.es", "name": "Dirección de Producción"},
+        "quality": {"email": "calidad@oceanix-galicia.es", "name": "Control de Calidad"},
+        "logistics": {"email": "logistica@oceanix-galicia.es", "name": "Logística y Distribución"},
+        "other": {"email": "info@oceanix-galicia.es", "name": "Recepción General"}
     },
     "THRESHOLDS": {
         "FIT_OK": 70,
@@ -102,7 +225,7 @@ CONFIG = {
         "LEAD_A": 80,
         "LEAD_B": 50
     },
-    "IDIOMAS": ["es", "en", "pt", "other"],
+    "IDIOMAS": ["es", "en", "pt", "fr", "other"],
     "GUARDRAILS_POLICY": {
         "blocking_categories": [
             "violence",
@@ -127,39 +250,54 @@ CONFIG = {
     },
     "CV_POLICY": {
         "matching_weights": {
-            "skills_overlap": 50,
+            "skills_overlap": 40,
             "experience_match": 30,
-            "language_bonus": 20
+            "certifications_bonus": 20,
+            "language_bonus": 10
         },
         "experience_bonus_rules": {
             "meets_minimum": 10,
             "exceeds_by_1_year": 5,
-            "exceeds_by_2_years": 10
+            "exceeds_by_2_years": 10,
+            "exceeds_by_5_years": 15
+        },
+        "certifications_boost": {
+            "sector_required": 20,
+            "safety_food_handling": 15,
+            "international_standard": 10
         }
     },
     "SALES_POLICY": {
         "score_weights": {
-            "corporate_domain": 20,
-            "budget_mentioned": 20,
+            "corporate_domain": 15,
+            "volume_commitment": 25,
             "timeline_clear": 20,
             "decision_maker_title": 20,
-            "use_case_clarity": 20
+            "quality_certifications_req": 20
         },
         "priority_rules": {
             "A": 80,
             "B": 50
         },
         "decision_maker_titles": [
-            "ceo", "cto", "cio", "cdo", "vp", "director", "head", "chief"
+            "ceo", "director", "gerente", "responsable_compras", "jefe_compras",
+            "procurement", "supply_chain", "director_operaciones"
+        ],
+        "high_value_sectors": [
+            "gran_superficie", "cadena_hoteles", "distribuidor_nacional",
+            "exportador", "mayorista_alimentacion"
         ]
     },
     "EVENTS_POLICY": {
-        "valid_topics": ["GenAI", "Data", "SaaS", "GTM", "AI", "Automation"],
-        "valid_regions": ["ES", "EU", "LATAM", "EMEA"],
-        "valid_formats": ["summit", "conference", "webinar", "workshop", "roundtable"]
+        "valid_topics": [
+            "Pesca", "Acuicultura", "Seguridad Alimentaria", "Sostenibilidad Marina",
+            "Logística Cadena Frío", "Trazabilidad", "Certificaciones", "Exportación"
+        ],
+        "valid_regions": ["ES", "EU", "LATAM", "EMEA", "Galicia", "Norte de España"],
+        "valid_formats": ["feria", "congreso", "webinar", "jornada_tecnica", "networking", "misión_comercial"]
     },
     "LANG_POLICY": {
-        "accepted": ["es", "en", "pt"],
+        "accepted": ["es", "en", "pt", "fr"],
         "default_reply": "es"
     },
     "EMAIL_TEMPLATES": {
@@ -168,7 +306,7 @@ CONFIG = {
             "tone": "profesional, interno, directo"
         },
         "cv_reject": {
-            "subject_pattern": "Gracias por tu candidatura – Aurora Agentics",
+            "subject_pattern": "Gracias por tu candidatura – OCEANIX Galicia",
             "tone": "amable, neutro, agradecido"
         },
         "sales_internal": {
@@ -176,7 +314,7 @@ CONFIG = {
             "tone": "briefing ejecutivo, datos clave"
         },
         "sales_external": {
-            "subject_pattern": "Gracias por tu interés en Aurora Agentics",
+            "subject_pattern": "Gracias por tu interés en OCEANIX Galicia",
             "tone": "profesional, consultivo, sin promesas"
         },
         "events": {
@@ -184,7 +322,7 @@ CONFIG = {
             "tone": "abierto, solicita detalles"
         },
         "generic": {
-            "subject_pattern": "Recibido – Aurora Agentics",
+            "subject_pattern": "Recibido – OCEANIX Galicia",
             "tone": "neutro, solicita contexto"
         }
     }
@@ -254,9 +392,10 @@ class CVExtractSchema(BaseModel):
     location: str
     years_experience: int = Field(ge=0)
     skills: List[str]
+    certifications: List[str] = Field(default_factory=list)
     target_department: Literal[
-        "engineering", "sales", "marketing", "hr", 
-        "operations", "finance", "it", "other"
+        "flota_pesquera", "produccion", "envasado", "calidad",
+        "logistica", "comercial", "it", "rrhh", "administracion", "other"
     ]
     role_guess: str
     availability: str
@@ -286,7 +425,10 @@ class CVMatchSchema(BaseModel):
 
 
 class OwnerMapSchema(BaseModel):
-    route_department: Literal["hr", "sales", "marketing", "events", "it", "support", "other"]
+    route_department: Literal[
+        "hr", "sales", "marketing", "events", "fleet", 
+        "production", "quality", "logistics", "it", "other"
+    ]
     owner_email: str
     owner_name: str
     
@@ -390,28 +532,28 @@ def get_intent_instructions(
     config = ctx.context.config
     company = config['COMPANY']
     
-    return f"""You are an intent classifier for {company['name']}.
+    return f"""Eres un clasificador de intención para {company['name']}.
 
-**COMPANY CONTEXT:**
-{json.dumps(company, indent=2)}
+**CONTEXTO DE LA EMPRESA:**
+{json.dumps(company, indent=2, ensure_ascii=False)}
 
-**CLASSIFY INTO ONE CATEGORY:**
-- "cv": Job application, resume, candidature
-- "sales": Business inquiry, partnership, service request
-- "event": Conference, speaking, sponsorship, press
-- "other": Anything else
+**CLASIFICAR EN UNA CATEGORÍA:**
+- "cv": Solicitud de empleo, currículum, candidatura laboral
+- "sales": Consulta comercial, solicitud de presupuesto, pedido de productos
+- "event": Conferencia, feria, patrocinio, prensa, alianza comercial
+- "other": Cualquier otra cosa
 
-**DETECT LANGUAGE:**
-- "es", "en", "pt", or "other"
+**DETECTAR IDIOMA:**
+- "es", "en", "pt", "fr", o "other"
 
-**CONFIDENCE:**
-- Score 0.0-1.0 based on signal clarity
+**CONFIANZA:**
+- Puntuación 0.0-1.0 basada en claridad de la señal
 
-**OUTPUT:** Return ONLY valid JSON matching IntentSchema:
+**OUTPUT:** Devuelve SOLO JSON válido que cumpla IntentSchema:
 {{
   "category": "cv|sales|event|other",
   "confidence": 0.0-1.0,
-  "language": "es|en|pt|other"
+  "language": "es|en|pt|fr|other"
 }}
 """
 
@@ -420,26 +562,28 @@ def get_cv_extract_instructions(
     ctx: RunContextWrapper[RouterContext], 
     agent: Agent[RouterContext]
 ) -> str:
-    return """You extract structured candidate data from CVs and application messages.
+    return """Extraes datos estructurados de candidatos desde CVs y mensajes de solicitud de empleo.
 
-**EXTRACT THESE FIELDS:**
-- full_name: candidate's name
-- email: contact email
-- phone: phone number (or empty string)
-- location: city/country
-- years_experience: total years of professional experience (integer)
-- skills: list of technical/professional skills
-- target_department: best fit from [engineering, sales, marketing, hr, operations, finance, it, other]
-- role_guess: what role they're applying for
-- availability: when they can start (or "not specified")
+**EXTRAE ESTOS CAMPOS:**
+- full_name: nombre del candidato
+- email: correo electrónico de contacto
+- phone: número de teléfono (o cadena vacía)
+- location: ciudad/país
+- years_experience: años totales de experiencia profesional (entero)
+- skills: lista de habilidades técnicas/profesionales
+- certifications: lista de certificaciones (ej: "Capitán Marina Mercante", "Manipulador de alimentos", "ISO 22000")
+- target_department: mejor ajuste entre [flota_pesquera, produccion, envasado, calidad, logistica, comercial, it, rrhh, administracion, other]
+- role_guess: qué puesto están solicitando
+- availability: cuándo pueden comenzar (o "no especificado")
 
-**RULES:**
-- Use empty strings for missing text fields
-- Use 0 for missing years_experience
-- Infer target_department from skills and role_guess
-- Do NOT invent data
+**REGLAS:**
+- Usa cadenas vacías para campos de texto faltantes
+- Usa 0 para years_experience si falta
+- Usa lista vacía [] para certifications si no se mencionan
+- Infiere target_department desde skills, certifications y role_guess
+- NO inventes datos
 
-**OUTPUT:** Return ONLY valid JSON matching CVExtractSchema.
+**OUTPUT:** Devuelve SOLO JSON válido que cumpla CVExtractSchema.
 """
 
 
@@ -452,44 +596,54 @@ def get_cv_match_instructions(
     thresholds = config['THRESHOLDS']
     cv_policy = config['CV_POLICY']
     
-    return f"""You match candidates against open roles using scoring rules.
+    return f"""Evalúas candidatos contra puestos vacantes usando reglas de puntuación.
 
-**OPEN ROLES:**
-{json.dumps(vacancies, indent=2)}
+**PUESTOS ABIERTOS:**
+{json.dumps(vacancies, indent=2, ensure_ascii=False)}
 
-**MATCHING WEIGHTS:**
-{json.dumps(cv_policy['matching_weights'], indent=2)}
+**PESOS DE EVALUACIÓN:**
+{json.dumps(cv_policy['matching_weights'], indent=2, ensure_ascii=False)}
 
-**THRESHOLDS:**
-- FIT_OK: {thresholds['FIT_OK']} (minimum to forward)
-- FIT_ALTA_CONF: {thresholds['FIT_ALTA_CONF']} (high confidence)
+**UMBRALES:**
+- FIT_OK: {thresholds['FIT_OK']} (mínimo para derivar)
+- FIT_ALTA_CONF: {thresholds['FIT_ALTA_CONF']} (alta confianza)
 
-**SCORING ALGORITHM (0-100 scale):**
-1. **Skills overlap (50 points max):** 
-   - Compare candidate skills vs skills_req
-   - (matched_skills / total_required_skills) * 50
+**ALGORITMO DE PUNTUACIÓN (escala 0-100):**
 
-2. **Experience match (30 points max):**
-   - Meets min_exp: +10 points
-   - Exceeds by 1 year: +5 bonus
-   - Exceeds by 2+ years: +10 bonus
-   - Max 30 points
+1. **Coincidencia de habilidades (40 puntos máx):** 
+   - Compara skills del candidato vs skills_req del puesto
+   - (habilidades_coincidentes / total_requeridas) * 40
 
-3. **Language bonus (20 points max):**
-   - If candidate language is "es": +20 points
-   - Else: +10 points
+2. **Coincidencia de experiencia (30 puntos máx):**
+   - Cumple min_exp: +10 puntos
+   - Supera por 1 año: +5 bonus
+   - Supera por 2 años: +10 bonus
+   - Supera por 5+ años: +15 bonus
+   - Máx 30 puntos
 
-**DECISION RULES:**
-- Calculate match_score for each role
-- Include roles with score >= {thresholds['FIT_OK']} in matched_roles
-- best_match = highest scoring role (or null if all < FIT_OK)
-- vacancies_found = true if any roles exist in our list
-- If no matches >= FIT_OK: matched_roles=[], best_match=null
+3. **Bonus certificaciones (20 puntos máx):**
+   - Certificación requerida del sector: +20 puntos
+   - Certificación seguridad alimentaria: +15 puntos
+   - Estándar internacional: +10 puntos
+   - Compara certifications del candidato vs certifications_req del puesto
+   - Máx 20 puntos
 
-**OUTPUT:** Return ONLY valid JSON matching CVMatchSchema with:
+4. **Bonus idioma (10 puntos máx):**
+   - Si idioma candidato es "es": +10 puntos
+   - Si idioma candidato es "en" o "pt": +7 puntos
+   - Otro: +5 puntos
+
+**REGLAS DE DECISIÓN:**
+- Calcula match_score para cada puesto
+- Incluye puestos con score >= {thresholds['FIT_OK']} en matched_roles
+- best_match = puesto con mayor puntuación (o null si todos < FIT_OK)
+- vacancies_found = true si existen puestos en nuestra lista
+- Si no hay coincidencias >= FIT_OK: matched_roles=[], best_match=null
+
+**OUTPUT:** Devuelve SOLO JSON válido que cumpla CVMatchSchema con:
 - vacancies_found: boolean
-- matched_roles: array of MatchedRole objects (with why field explaining the match)
-- best_match: MatchedRole or null
+- matched_roles: array de objetos MatchedRole (con campo why explicando la coincidencia)
+- best_match: MatchedRole o null
 """
 
 
@@ -526,35 +680,38 @@ def get_sales_extract_instructions(
 ) -> str:
     config = ctx.context.config
     policy = config['SALES_POLICY']
-    services = config['SERVICIOS_CORE']
-    packages = config['PAQUETES_Y_PRECIOS']
+    products = config['LINEAS_PRODUCTO']
+    contracts = config['CONTRATOS_COMERCIALES']
     
-    return f"""You extract and qualify sales leads using scoring rules.
+    return f"""Extraes y calificas leads comerciales usando reglas de puntuación.
 
-**OUR SERVICES:**
-{json.dumps(services, indent=2)}
+**NUESTRAS LÍNEAS DE PRODUCTO:**
+{json.dumps(products, indent=2, ensure_ascii=False)}
 
-**PACKAGES:**
-{json.dumps(packages, indent=2)}
+**TIPOS DE CONTRATO:**
+{json.dumps(contracts, indent=2, ensure_ascii=False)}
 
-**SCORING RULES (0-100, each worth 20 points):**
-{json.dumps(policy['score_weights'], indent=2)}
+**REGLAS DE PUNTUACIÓN (0-100, cada criterio vale puntos según pesos):**
+{json.dumps(policy['score_weights'], indent=2, ensure_ascii=False)}
 
-1. **Corporate domain (20):** Email from company domain (not gmail/yahoo)
-2. **Budget mentioned (20):** Explicit budget or maps to our packages
-3. **Timeline clear (20):** Specific timeframe (Q1, this month, <8 weeks)
-4. **Decision maker (20):** Title includes: {policy['decision_maker_titles']}
-5. **Use case clarity (20):** Clear description with objective/verb
+1. **Dominio corporativo (15):** Email corporativo (no gmail/yahoo/hotmail)
+2. **Compromiso de volumen (25):** Mención explícita de toneladas/mes, frecuencia de pedidos, o interés en contrato de volumen
+3. **Timeline claro (20):** Marco temporal específico (Q1, este mes, <8 semanas, inicio temporada)
+4. **Decision maker (20):** Título incluye: {policy['decision_maker_titles']}
+5. **Requisitos certificaciones calidad (20):** Menciona necesidad de: MSC, IFS, ISO 22000, trazabilidad, u otras certificaciones
 
-**PRIORITY RULES:**
+**REGLAS DE PRIORIDAD:**
 - A: score >= {policy['priority_rules']['A']}
 - B: score >= {policy['priority_rules']['B']}
 - C: score < {policy['priority_rules']['B']}
 
-**OUTPUT:** Return ONLY valid JSON matching SalesExtractSchema with:
+**SECTORES DE ALTO VALOR (bonus +10 si aplica):**
+{json.dumps(policy['high_value_sectors'], indent=2, ensure_ascii=False)}
+
+**OUTPUT:** Devuelve SOLO JSON válido que cumpla SalesExtractSchema con:
 - company, contact_name, contact_email, contact_phone
-- intent_summary (2-3 sentences)
-- product_interest (list from our services)
+- intent_summary (2-3 frases)
+- product_interest (lista desde nuestras líneas de producto)
 - budget_hint, timeline, title
 - lead_score (0-100)
 - priority (A/B/C)
@@ -569,25 +726,25 @@ def get_draft_reject_instructions(
     company = config['COMPANY']
     template = config['EMAIL_TEMPLATES']['cv_reject']
     
-    return f"""Generate a rejection email for a candidate.
+    return f"""Genera un email de rechazo amable para un candidato.
 
-**COMPANY:** {company['name']}
-**CAREERS URL:** {company['careers_url']}
-**TEMPLATE:** {json.dumps(template, indent=2)}
+**EMPRESA:** {company['name']}
+**URL CARRERAS:** {company['careers_url']}
+**TEMPLATE:** {json.dumps(template, indent=2, ensure_ascii=False)}
 
-**CONTENT:**
-- Thank candidate by name
-- No current fit but appreciate interest
-- CVs kept for 6 months
-- Encourage to check careers page
-- Warm, professional tone in Spanish
+**CONTENIDO:**
+- Agradecer al candidato por su nombre
+- No hay encaje actual pero agradecemos el interés
+- CVs se mantienen archivados 6 meses
+- Animar a revisar página de carreras periódicamente
+- Tono cálido, profesional, en español
 
-**OUTPUT:** Return ONLY valid JSON matching DraftEmailSchema:
+**OUTPUT:** Devuelve SOLO JSON válido que cumpla DraftEmailSchema:
 {{
   "to": "<candidate_email>",
   "cc": "",
-  "subject": "Gracias por tu candidatura – Aurora Agentics",
-  "body_markdown": "<email body in markdown>"
+  "subject": "Gracias por tu candidatura – OCEANIX Galicia",
+  "body_markdown": "<cuerpo del email en markdown>"
 }}
 """
 
@@ -599,18 +756,18 @@ def get_draft_hr_forward_instructions(
     config = ctx.context.config
     template = config['EMAIL_TEMPLATES']['cv_forward']
     
-    return f"""Generate internal email forwarding candidate to hiring manager/HR.
+    return f"""Genera email interno derivando candidato a responsable de contratación/RRHH.
 
-**TEMPLATE:** {json.dumps(template, indent=2)}
+**TEMPLATE:** {json.dumps(template, indent=2, ensure_ascii=False)}
 
-**CONTENT (in Spanish):**
+**CONTENIDO (en español):**
 - Subject: "Candidato potencial – {{role_title}} (fit {{score}}%)"
-- Summary of candidate (name, experience, key skills)
-- Matched roles with scores
-- Best match highlighted with reasoning
-- Professional, internal briefing tone
+- Resumen del candidato (nombre, experiencia, habilidades clave, certificaciones)
+- Puestos coincidentes con scores
+- Mejor coincidencia destacada con razonamiento
+- Tono profesional, briefing interno
 
-**OUTPUT:** Return ONLY valid JSON matching DraftEmailSchema.
+**OUTPUT:** Devuelve SOLO JSON válido que cumpla DraftEmailSchema.
 """
 
 
@@ -621,20 +778,20 @@ def get_draft_sales_forward_instructions(
     config = ctx.context.config
     template = config['EMAIL_TEMPLATES']['sales_internal']
     
-    return f"""Generate internal briefing email for Sales team.
+    return f"""Genera email de briefing interno para equipo Comercial.
 
-**TEMPLATE:** {json.dumps(template, indent=2)}
+**TEMPLATE:** {json.dumps(template, indent=2, ensure_ascii=False)}
 
-**CONTENT (in Spanish):**
+**CONTENIDO (en español):**
 - Subject: "Lead {{priority}} – {{company}} (score: {{lead_score}})"
-- Contact details
-- Intent summary
-- Key signals (budget, timeline, title, use case)
-- Product interest
-- Recommended next action (respond within 24-48h)
-- Executive briefing tone
+- Datos de contacto
+- Resumen de intención
+- Señales clave (volumen, timeline, cargo, requisitos certificaciones)
+- Interés en productos
+- Acción recomendada (responder en 24-48h)
+- Tono briefing ejecutivo
 
-**OUTPUT:** Return ONLY valid JSON matching DraftEmailSchema.
+**OUTPUT:** Devuelve SOLO JSON válido que cumpla DraftEmailSchema.
 """
 
 
@@ -646,18 +803,18 @@ def get_draft_generic_ack_instructions(
     company = config['COMPANY']
     lang_policy = config['LANG_POLICY']
     
-    return f"""Generate acknowledgment email for events or generic inquiries.
+    return f"""Genera email de acuse de recibo para eventos o consultas genéricas.
 
-**COMPANY:** {company['name']}
-**DEFAULT LANGUAGE:** {lang_policy['default_reply']}
+**EMPRESA:** {company['name']}
+**IDIOMA POR DEFECTO:** {lang_policy['default_reply']}
 
-**CONTENT:**
-- Acknowledge receipt
-- Request 3 key details: objective, timeline/urgency, context
-- Professional, neutral tone
-- Use default language (Spanish) unless context suggests otherwise
+**CONTENIDO:**
+- Acusar recibo
+- Solicitar 3 detalles clave: objetivo, timeline/urgencia, contexto
+- Tono profesional, neutral
+- Usar idioma por defecto (español) a menos que el contexto sugiera otro
 
-**OUTPUT:** Return ONLY valid JSON matching DraftEmailSchema.
+**OUTPUT:** Devuelve SOLO JSON válido que cumpla DraftEmailSchema.
 """
 
 
@@ -925,14 +1082,14 @@ def create_pdf_input_base64(file_path: Path, user_query: str) -> List[dict]:
             "content": [
                 {
                     "type": "input_file",
-                    "filename": file_path.name,
                     "file_data": f"data:application/pdf;base64,{base64_string}",
-                },
-                {
-                    "type": "input_text",
-                    "text": user_query,
+                    "filename": file_path.name,
                 },
             ],
+        },
+        {
+            "role": "user",
+            "content": user_query,
         },
     ]
 
@@ -959,11 +1116,11 @@ def create_pdf_input_file_id(file_path: Path, user_query: str, client: OpenAI) -
                     "type": "input_file",
                     "file_id": file.id,
                 },
-                {
-                    "type": "input_text",
-                    "text": user_query,
-                },
             ],
+        },
+        {
+            "role": "user",
+            "content": user_query,
         },
     ]
 
@@ -999,12 +1156,13 @@ def create_image_input(file_path: Path, user_query: str) -> List[dict]:
                 {
                     "type": "input_image",
                     "image_url": f"data:{mime_type};base64,{base64_string}",
-                },
-                {
-                    "type": "input_text",
-                    "text": user_query,
+                    "detail": "auto",
                 },
             ],
+        },
+        {
+            "role": "user",
+            "content": user_query,
         },
     ]
 
@@ -1146,20 +1304,27 @@ async def run_agent_with_logs(
         print("[MULTI-MODAL INPUT - Messages with files]")
         # Show simplified version to avoid printing large base64 strings
         for msg in inp:
-            if isinstance(msg, dict) and "content" in msg:
-                content_items = msg.get("content", [])
-                print(f"  Role: {msg.get('role', 'user')}")
-                for item in content_items:
-                    if isinstance(item, dict):
-                        item_type = item.get("type", "unknown")
-                        if item_type == "input_file":
-                            filename = item.get("filename", "file")
-                            print(f"    - File: {filename}")
-                        elif item_type == "input_image":
-                            print(f"    - Image (base64)")
-                        elif item_type == "input_text":
-                            text = item.get("text", "")
-                            print(f"    - Text: {text[:100]}...")
+            if isinstance(msg, dict):
+                role = msg.get("role", "user")
+                content = msg.get("content", [])
+                print(f"  Role: {role}")
+                
+                # Handle string content (simple text message)
+                if isinstance(content, str):
+                    print(f"    - Text: {content[:100]}...")
+                # Handle list content (multi-modal message)
+                elif isinstance(content, list):
+                    for item in content:
+                        if isinstance(item, dict):
+                            item_type = item.get("type", "unknown")
+                            if item_type == "input_file":
+                                filename = item.get("filename", "file")
+                                print(f"    - File: {filename}")
+                            elif item_type == "input_image":
+                                print(f"    - Image (base64)")
+                            elif item_type == "text":
+                                text = item.get("text", "")
+                                print(f"    - Text: {text[:100]}...")
     else:
         # Text input
         print(f"\n>>> INPUT → {agent.name}:\n{inp if isinstance(inp, str) else serialize_for_llm(inp)}")
@@ -1178,7 +1343,7 @@ async def run_agent_with_logs(
     return result
 
 
-async def run_workflow_async(workflow: WorkflowInput) -> dict:
+async def run_workflow_async(workflow: WorkflowInput, hooks: Optional[RunHooks[RouterContext]] = None) -> dict:
     """
     Main orchestration function. Follows the routing logic:
     1. Guardrails check
@@ -1187,13 +1352,18 @@ async def run_workflow_async(workflow: WorkflowInput) -> dict:
     4. Generate drafts and package final output
     
     Supports both text and multi-modal inputs (images, PDFs).
+    
+    Args:
+        workflow: Input configuration
+        hooks: Optional custom hooks for event handling (defaults to TerminalRunHooks)
     """
     
     # Initialize context with CONFIG
     context = RouterContext(config=CONFIG)
     
-    # Hooks para logging terminal
-    hooks = TerminalRunHooks()
+    # Use provided hooks or default terminal hooks
+    if hooks is None:
+        hooks = TerminalRunHooks()
     
     # Configure tracing
     run_config = RunConfig(

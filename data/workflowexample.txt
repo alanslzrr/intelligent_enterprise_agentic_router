@@ -1,28 +1,25 @@
-(PhoenixCalibration) PS C:\Projects\UIE_GISI\tec_automatizacion_robotizacion\intelligent_enterprise_agentic_router> & C:/Users/alanslzr/anaconda3/envs/PhoenixCalibration/python.exe c:/Projects/UIE_GISI/tec_automatizacion_robotizacion/intelligent_enterprise_agentic_router/router.py
-
-=== Selecciona un archivo para procesar ===
-1. Margaret-Wangari-Waithaka-CV.pdf [PDF]
-2. prueba.txt [TXT]
-3. requirements.txt [TXT]
-
-Ingresa el número del archivo: 1
-
-[Procesando: Margaret-Wangari-Waithaka-CV.pdf]
-
-Puedes proporcionar una pregunta/instrucción específica para el archivo,
-o presiona Enter para usar la consulta predeterminada.
-Tu pregunta (opcional): 
+(PhoenixCalibration) PS C:\Projects\UIE_GISI\tec_automatizacion_robotizacion\intelligent_enterprise_agentic_router> conda activate PhoenixCalibration; python -m uvicorn app:app --host 0.0.0.0 --port 8000 --reload
+INFO:     Will watch for changes in these directories: ['C:\\Projects\\UIE_GISI\\tec_automatizacion_robotizacion\\intelligent_enterprise_agentic_router']
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [10820] using WatchFiles
+INFO:     Started server process [17900]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:53962 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53962 - "GET /static/styles.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49671 - "GET /static/script.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49671 - "GET /api/data-files HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49671 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49671 - "POST /api/upload HTTP/1.1" 200 OK
+INFO:     ('127.0.0.1', 56404) - "WebSocket /ws" [accepted]
+INFO:     connection open
 
 >>> INPUT → Guardrails:
 [MULTI-MODAL INPUT - Messages with files]
   Role: user
     - File: Margaret-Wangari-Waithaka-CV.pdf
-    - Text: Analiza este documento y extrae toda la información relevante....
-
-==================== [1] START Agent: Guardrails ====================
-[USAGE] Guardrails → requests=1 input_tokens=2425 output_tokens=1611 total_tokens=4036
-
-==================== END Agent: Guardrails ====================
+  Role: user
+    - Text: Proceso este documento y analízalo...
 
 <<< OUTPUT ← Guardrails:
 {
@@ -35,7 +32,7 @@ Tu pregunta (opcional):
     },
     "pii": {
       "found": true,
-      "redactions": 4
+      "redactions": 5
     },
     "jailbreak": {
       "suspected": false,
@@ -159,29 +156,19 @@ Phone No: [REDACTED_PHONE]
 Assistant Dean of Student Kibabii University
 Phone No: [REDACTED_PHONE]
 
-==================== [2] START Agent: Intent classifier ====================
-[USAGE] Intent classifier → requests=1 input_tokens=1548 output_tokens=25 total_tokens=1573
-
-==================== END Agent: Intent classifier ====================
-
 <<< OUTPUT ← Intent classifier:
 {
   "category": "cv",
-  "confidence": 0.95,
+  "confidence": 0.99,
   "language": "en"
 }
 
 >>> INPUT → Owner mapping:
 {
   "category": "cv",
-  "confidence": 0.95,
+  "confidence": 0.99,
   "language": "en"
 }
-
-==================== [3] START Agent: Owner mapping ====================
-[USAGE] Owner mapping → requests=1 input_tokens=314 output_tokens=98 total_tokens=412
-
-==================== END Agent: Owner mapping ====================
 
 <<< OUTPUT ← Owner mapping:
 {
@@ -305,11 +292,6 @@ Phone No: [REDACTED_PHONE]
 Assistant Dean of Student Kibabii University
 Phone No: [REDACTED_PHONE]
 
-==================== [4] START Agent: CV extractor ====================
-[USAGE] CV extractor → requests=1 input_tokens=1542 output_tokens=266 total_tokens=1808
-
-==================== END Agent: CV extractor ====================
-
 <<< OUTPUT ← CV extractor:
 {
   "full_name": "Margaret Wangari Waithaka",
@@ -318,20 +300,18 @@ Phone No: [REDACTED_PHONE]
   "location": "Kenya",
   "years_experience": 16,
   "skills": [
-    "Management",
-    "Organizational skills",
-    "Deep cleaning/housekeeping",
-    "Decision making",
+    "Hostel management",
+    "Housekeeping",
+    "Deep cleaning",
+    "Quality management (ISO 9001)",
+    "staff supervision and training",
     "Leadership",
+    "Organizational skills",
     "Communication",
-    "Cleaning schedules and inspection checklists",
-    "On‑job training",
     "Procurement liaison",
     "Inventory and stock control",
-    "Food production and catering",
-    "Food costing and sales analysis",
-    "ISO 9001:2015 implementation and internal auditing",
-    "Quality management systems (QMS)"
+    "Food production and menu planning",
+    "Customer service"
   ],
   "target_department": "operations",
   "role_guess": "Hostels Officer",
@@ -347,30 +327,23 @@ Candidate data:
   "location": "Kenya",
   "years_experience": 16,
   "skills": [
-    "Management",
-    "Organizational skills",
-    "Deep cleaning/housekeeping",
-    "Decision making",
+    "Hostel management",
+    "Housekeeping",
+    "Deep cleaning",
+    "Quality management (ISO 9001)",
+    "staff supervision and training",
     "Leadership",
+    "Organizational skills",
     "Communication",
-    "Cleaning schedules and inspection checklists",
-    "On‑job training",
     "Procurement liaison",
     "Inventory and stock control",
-    "Food production and catering",
-    "Food costing and sales analysis",
-    "ISO 9001:2015 implementation and internal auditing",
-    "Quality management systems (QMS)"
+    "Food production and menu planning",
+    "Customer service"
   ],
   "target_department": "operations",
   "role_guess": "Hostels Officer",
   "availability": "not specified"
 }
-
-==================== [5] START Agent: CV matcher ====================
-[USAGE] CV matcher → requests=1 input_tokens=965 output_tokens=218 total_tokens=1183
-
-==================== END Agent: CV matcher ====================
 
 <<< OUTPUT ← CV matcher:
 {
@@ -387,37 +360,30 @@ Candidate data:
   "location": "Kenya",
   "years_experience": 16,
   "skills": [
-    "Management",
-    "Organizational skills",
-    "Deep cleaning/housekeeping",
-    "Decision making",
+    "Hostel management",
+    "Housekeeping",
+    "Deep cleaning",
+    "Quality management (ISO 9001)",
+    "staff supervision and training",
     "Leadership",
+    "Organizational skills",
     "Communication",
-    "Cleaning schedules and inspection checklists",
-    "On‑job training",
     "Procurement liaison",
     "Inventory and stock control",
-    "Food production and catering",
-    "Food costing and sales analysis",
-    "ISO 9001:2015 implementation and internal auditing",
-    "Quality management systems (QMS)"
+    "Food production and menu planning",
+    "Customer service"
   ],
   "target_department": "operations",
   "role_guess": "Hostels Officer",
   "availability": "not specified"
 }
 
-==================== [6] START Agent: Draft HR reject ====================
-[USAGE] Draft HR reject → requests=1 input_tokens=427 output_tokens=283 total_tokens=710
-
-==================== END Agent: Draft HR reject ====================
-
 <<< OUTPUT ← Draft HR reject:
 {
   "to": "mwaithaka@kibu.ac.ke",
   "cc": "",
   "subject": "Gracias por tu candidatura – Aurora Agentics",
-  "body_markdown": "Hola Margaret Wangari Waithaka,\n\nMuchas gracias por postularte y por compartir tu experiencia con nosotros. Apreciamos el tiempo que dedicaste a enviarnos tu candidatura para el área de operaciones.\n\nTras revisar tu perfil, en este momento no encontramos una posición que se ajuste exactamente a tu experiencia y competencias. No obstante, valoramos mucho tu interés en Aurora Agentics y conservaremos tu currículum en nuestra base de datos durante los próximos 6 meses por si surgiera una oportunidad adecuada.\n\nTe animamos a que consultes periódicamente nuestra página de ofertas en: https://aurora-agentics.test/careers para estar al tanto de nuevas vacantes.\n\nGracias nuevamente por tu interés. Te deseamos mucho éxito en tu búsqueda profesional.\n\nAtentamente,\n\nEquipo de Talento Humano\nAurora Agentics"
+  "body_markdown": "Estimada Margaret Wangari Waithaka,\n\nMuchas gracias por haberte postulado para el área de operaciones en Aurora Agentics y por compartir con nosotros tu experiencia y habilidades. Apreciamos el tiempo que dedicaste a preparar y enviar tu candidatura.\n\nTras revisar tu perfil, lamentamos informarte que en este momento no hemos identificado una vacante que encaje con tu perfil. Conservaremos tu CV en nuestra base de datos durante 6 meses para considerarlo en futuras oportunidades que puedan ser adecuadas.\n\nTe animamos a consultar periódicamente nuestra página de carreras para ver nuevas vacantes: https://aurora-agentics.test/careers\n\nTe agradecemos nuevamente tu interés en Aurora Agentics y te deseamos mucho éxito en tu búsqueda profesional. Si surge una posición acorde con tu experiencia, nos pondremos en contacto contigo.\n\nUn cordial saludo,\n\nEl equipo de talento de Aurora Agentics"
 }
 
 >>> INPUT → Packager HR reject:
@@ -430,55 +396,28 @@ Candidate data:
     "location": "Kenya",
     "years_experience": 16,
     "skills": [
-      "Management",
-      "Organizational skills",
-      "Deep cleaning/housekeeping",
-      "Decision making",
+      "Hostel management",
+      "Housekeeping",
+      "Deep cleaning",
+      "Quality management (ISO 9001)",
+      "staff supervision and training",
       "Leadership",
+      "Organizational skills",
       "Communication",
-      "Cleaning schedules and inspection checklists",
-      "On‑job training",
-      "Procurement liaison",
-      "Cleaning schedules and inspection checklists",
-      "On‑job training",
-      "Procurement liaison",
-      "On‑job training",
-      "Procurement liaison",
       "Procurement liaison",
       "Inventory and stock control",
-      "Food production and catering",
-      "Food costing and sales analysis",
-      "Food costing and sales analysis",
-      "ISO 9001:2015 implementation and internal auditing",
-      "Quality management systems (QMS)"
+      "Food production and menu planning",
+      "Customer service"
     ],
-      "ISO 9001:2015 implementation and internal auditing",
-      "Quality management systems (QMS)"
-    ],
-    "target_department": "operations",
-    "role_guess": "Hostels Officer",
-      "Quality management systems (QMS)"
-    ],
-    "target_department": "operations",
-    "role_guess": "Hostels Officer",
-    "availability": "not specified"
-    ],
-    "target_department": "operations",
-    "role_guess": "Hostels Officer",
-    "availability": "not specified"
     "target_department": "operations",
     "role_guess": "Hostels Officer",
     "availability": "not specified"
   },
-    "availability": "not specified"
-  },
-  },
-  "draft_email": {
   "draft_email": {
     "to": "mwaithaka@kibu.ac.ke",
     "cc": "",
     "subject": "Gracias por tu candidatura – Aurora Agentics",
-    "body_markdown": "Hola Margaret Wangari Waithaka,\n\nMuchas gracias por postularte y por compartir tu experiencia con nosotros. Apreciamos el tiempo que dedicaste a enviarnos tu candidatura para el área de operaciones.\n\nTras revisar tu perfil, en este momento no encontramos una posición que se ajuste exactamente a tu experiencia y competencias. No obstante, valoramos mucho tu interés en Aurora Agentics y conservaremos tu currículum en nuestra base de datos durante los próximos 6 meses por si surgiera una oportunidad adecuada.\n\nTe animamos a que consultes periódicamente nuestra página de ofertas en: https://aurora-agentics.test/careers para estar al tanto de nuevas vacantes.\n\nGracias nuevamente por tu interés. Te deseamos mucho éxito en tu búsqueda profesional.\n\nAtentamente,\n\nEquipo de Talento Humano\nAurora Agentics"
+    "body_markdown": "Estimada Margaret Wangari Waithaka,\n\nMuchas gracias por haberte postulado para el área de operaciones en Aurora Agentics y por compartir con nosotros tu experiencia y habilidades. Apreciamos el tiempo que dedicaste a preparar y enviar tu candidatura.\n\nTras revisar tu perfil, lamentamos informarte que en este momento no hemos identificado una vacante que encaje con tu perfil. Conservaremos tu CV en nuestra base de datos durante 6 meses para considerarlo en futuras oportunidades que puedan ser adecuadas.\n\nTe animamos a consultar periódicamente nuestra página de carreras para ver nuevas vacantes: https://aurora-agentics.test/careers\n\nTe agradecemos nuevamente tu interés en Aurora Agentics y te deseamos mucho éxito en tu búsqueda profesional. Si surge una posición acorde con tu experiencia, nos pondremos en contacto contigo.\n\nUn cordial saludo,\n\nEl equipo de talento de Aurora Agentics"
   },
   "owner_map": {
     "route_department": "hr",
@@ -486,11 +425,6 @@ Candidate data:
     "owner_name": "HR Team"
   }
 }
-
-==================== [7] START Agent: Packager HR reject ====================
-[USAGE] Packager HR reject → requests=1 input_tokens=629 output_tokens=562 total_tokens=1191
-
-==================== END Agent: Packager HR reject ====================
 
 <<< OUTPUT ← Packager HR reject:
 {
@@ -504,20 +438,18 @@ Candidate data:
       "location": "Kenya",
       "years_experience": 16,
       "skills": [
-        "Management",
-        "Organizational skills",
-        "Deep cleaning/housekeeping",
-        "Decision making",
+        "Hostel management",
+        "Housekeeping",
+        "Deep cleaning",
+        "Quality management (ISO 9001)",
+        "staff supervision and training",
         "Leadership",
+        "Organizational skills",
         "Communication",
-        "Cleaning schedules and inspection checklists",
-        "On‑job training",
         "Procurement liaison",
         "Inventory and stock control",
-        "Food production and catering",
-        "Food costing and sales analysis",
-        "ISO 9001:2015 implementation and internal auditing",
-        "Quality management systems (QMS)"
+        "Food production and menu planning",
+        "Customer service"
       ],
       "target_department": "operations",
       "role_guess": "Hostels Officer",
@@ -527,7 +459,7 @@ Candidate data:
       "to": "mwaithaka@kibu.ac.ke",
       "cc": "",
       "subject": "Gracias por tu candidatura – Aurora Agentics",
-      "body_markdown": "Hola Margaret Wangari Waithaka,\n\nMuchas gracias por postularte y por compartir tu experiencia con nosotros. Apreciamos el tiempo que dedicaste a enviarnos tu candidatura para el área de operaciones.\n\nTras revisar tu perfil, en este momento no encontramos una posición que se ajuste exactamente a tu experiencia y competencias. No obstante, valoramos mucho tu interés en Aurora Agentics y conservaremos tu currículum en nuestra base de datos durante los próximos 6 meses por si surgiera una oportunidad adecuada.\n\nTe animamos a que consultes periódicamente nuestra página de ofertas en: https://aurora-agentics.test/careers para estar al tanto de nuevas vacantes.\n\nGracias nuevamente por tu interés. Te deseamos mucho éxito en tu búsqueda profesional.\n\nAtentamente,\n\nEquipo de Talento Humano\nAurora Agentics"
+      "body_markdown": "Estimada Margaret Wangari Waithaka,\n\nMuchas gracias por haberte postulado para el área de operaciones en Aurora Agentics y por compartir con nosotros tu experiencia y habilidades. Apreciamos el tiempo que dedicaste a preparar y enviar tu candidatura.\n\nTras revisar tu perfil, lamentamos informarte que en este momento no hemos identificado una vacante que encaje con tu perfil. Conservaremos tu CV en nuestra base de datos durante 6 meses para considerarlo en futuras oportunidades que puedan ser adecuadas.\n\nTe animamos a consultar periódicamente nuestra página de carreras para ver nuevas vacantes: https://aurora-agentics.test/careers\n\nTe agradecemos nuevamente tu interés en Aurora Agentics y te deseamos mucho éxito en tu búsqueda profesional. Si surge una posición acorde con tu experiencia, nos pondremos en contacto contigo.\n\nUn cordial saludo,\n\nEl equipo de talento de Aurora Agentics"
     },
     "owner_map": {
       "route_department": "hr",
@@ -536,46 +468,4 @@ Candidate data:
     }
   }
 }
-{
-  "final_route": "hr_cv_reject",
-  "payload": {
-    "reason": "no_vacancies",
-    "cv_extract": {
-      "full_name": "Margaret Wangari Waithaka",
-      "email": "mwaithaka@kibu.ac.ke",
-      "phone": "",
-      "location": "Kenya",
-      "years_experience": 16,
-      "skills": [
-        "Management",
-        "Organizational skills",
-        "Deep cleaning/housekeeping",
-        "Decision making",
-        "Leadership",
-        "Communication",
-        "Cleaning schedules and inspection checklists",
-        "On‑job training",
-        "Procurement liaison",
-        "Inventory and stock control",
-        "Food production and catering",
-        "Food costing and sales analysis",
-        "ISO 9001:2015 implementation and internal auditing",
-        "Quality management systems (QMS)"
-      ],
-      "target_department": "operations",
-      "role_guess": "Hostels Officer",
-      "availability": "not specified"
-    },
-    "draft_email": {
-      "to": "mwaithaka@kibu.ac.ke",
-      "cc": "",
-      "subject": "Gracias por tu candidatura – Aurora Agentics",
-      "body_markdown": "Hola Margaret Wangari Waithaka,\n\nMuchas gracias por postularte y por compartir tu experiencia con nosotros. Apreciamos el tiempo que dedicaste a enviarnos tu candidatura para el área de operaciones.\n\nTras revisar tu perfil, en este momento no encontramos una posición que se ajuste exactamente a tu experiencia y competencias. No obstante, valoramos mucho tu interés en Aurora Agentics y conservaremos tu currículum en nuestra base de datos durante los próximos 6 meses por si surgiera una oportunidad adecuada.\n\nTe animamos a que consultes periódicamente nuestra página de ofertas en: https://aurora-agentics.test/careers para estar al tanto de nuevas vacantes.\n\nGracias nuevamente por tu interés. Te deseamos mucho éxito en tu búsqueda profesional.\n\nAtentamente,\n\nEquipo de Talento Humano\nAurora Agentics"
-    },
-    "owner_map": {
-      "route_department": "hr",
-      "owner_email": "talent@aurora-agentics.test",
-      "owner_name": "HR Team"
-    }
-  }
-}
+INFO:     connection closed

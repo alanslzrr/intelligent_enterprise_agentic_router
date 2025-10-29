@@ -2,7 +2,7 @@
 
 ## Resumen Ejecutivo
 
-El presente informe documenta el desarrollo e implementación de un sistema automatizado de procesamiento y enrutamiento de comunicaciones empresariales basado en una arquitectura multiagente utilizando el SDK de OpenAI Agents. El sistema está diseñado para clasificar, analizar y direccionar automáticamente diferentes tipos de comunicaciones (currículums, consultas comerciales y solicitudes de eventos) hacia los departamentos correspondientes, optimizando los procesos de gestión empresarial de Aurora Agentics.
+El presente informe documenta el desarrollo e implementación de un sistema automatizado de procesamiento y enrutamiento de comunicaciones empresariales basado en una arquitectura multiagente utilizando el SDK de OpenAI Agents. El sistema está diseñado para clasificar, analizar y direccionar automáticamente diferentes tipos de comunicaciones (currículums, consultas comerciales y solicitudes de eventos) hacia los departamentos correspondientes, optimizando los procesos de gestión empresarial de OCEANIX Galicia S.A.
 
 **Actualización:** El sistema ahora incluye soporte multi-modal para procesar archivos PDF e imágenes directamente, utilizando las capacidades nativas de los modelos de OpenAI sin bibliotecas externas de OCR o extracción.
 
@@ -14,7 +14,7 @@ El presente informe documenta el desarrollo e implementación de un sistema auto
 
 En el ámbito empresarial contemporáneo, las organizaciones reciben diariamente un volumen considerable de comunicaciones que requieren clasificación, análisis y enrutamiento hacia los departamentos apropiados. La gestión manual de estos flujos de información resulta ineficiente, propensa a errores y consume recursos humanos significativos que podrían destinarse a actividades de mayor valor agregado.
 
-Aurora Agentics, una empresa de consultoría especializada en inteligencia artificial y automatización de procesos, identificó la necesidad de automatizar el procesamiento de sus comunicaciones entrantes, particularmente aquellas relacionadas con candidaturas laborales, oportunidades comerciales y propuestas de colaboración en eventos.
+OCEANIX Galicia S.A., una empresa pesquera integrada especializada en la captura, procesamiento y comercialización de productos del mar, identificó la necesidad de automatizar el procesamiento de sus comunicaciones entrantes, particularmente aquellas relacionadas con candidaturas laborales (tripulación, técnicos de calidad, operarios), oportunidades comerciales (contratos con cadenas HoReCa, distribuidores, exportadores) y propuestas de colaboración en eventos del sector (ferias pesqueras, congresos de alimentación).
 
 ### 1.2 Problemática
 
@@ -165,39 +165,54 @@ Cada pipeline concluye con un agente packager que estructura la salida final en 
 
 #### 3.4.1 Scoring de Candidatos (0-100)
 
-El sistema implementa un algoritmo de evaluación ponderada que considera tres dimensiones:
+El sistema implementa un algoritmo de evaluación ponderada que considera cuatro dimensiones:
 
-**Overlap de competencias (50 puntos máximo):**
+**Overlap de competencias (40 puntos máximo):**
 ```
-score_competencias = (competencias_coincidentes / competencias_requeridas) × 50
+score_competencias = (competencias_coincidentes / competencias_requeridas) × 40
 ```
 
 **Experiencia (30 puntos máximo):**
 - Cumple experiencia mínima: 10 puntos
 - Excede por 1 año: +5 puntos adicionales
-- Excede por 2+ años: +10 puntos adicionales
+- Excede por 2 años: +10 puntos adicionales
+- Excede por 5+ años: +15 puntos adicionales
 - Máximo: 30 puntos
 
-**Idioma (20 puntos máximo):**
-- Comunicación en español: 20 puntos
-- Otros idiomas: 10 puntos
+**Certificaciones del sector (20 puntos máximo):**
+- Certificación requerida del sector: 20 puntos
+- Certificación seguridad alimentaria: 15 puntos
+- Estándar internacional: 10 puntos
+- Máximo: 20 puntos
+
+**Idioma (10 puntos máximo):**
+- Comunicación en español: 10 puntos
+- Inglés o portugués: 7 puntos
+- Otros idiomas: 5 puntos
 
 **Threshold de aceptación:** 70 puntos
 
 #### 3.4.2 Scoring de Leads Comerciales (0-100)
 
-El sistema evalúa leads comerciales mediante cinco dimensiones de 20 puntos cada una:
+El sistema evalúa leads comerciales mediante cinco dimensiones ponderadas:
 
-1. **Dominio corporativo (20 puntos)**: Email con dominio empresarial vs. dominio genérico (gmail, yahoo)
-2. **Mención de presupuesto (20 puntos)**: Presencia de referencia explícita a presupuesto o mapeo con paquetes comerciales
-3. **Timeline claro (20 puntos)**: Especificación de marco temporal concreto (Q1, este mes, <8 semanas)
-4. **Perfil de tomador de decisiones (20 puntos)**: Título incluye: CEO, CTO, CIO, CDO, VP, Director, Head, Chief
-5. **Claridad del caso de uso (20 puntos)**: Descripción clara con objetivo y verbo de acción
+1. **Dominio corporativo (15 puntos)**: Email con dominio empresarial vs. dominio genérico (gmail, yahoo)
+2. **Compromiso de volumen (25 puntos)**: Mención de toneladas/mes, frecuencia de pedidos o interés en contratos de volumen
+3. **Timeline claro (20 puntos)**: Especificación de marco temporal concreto (Q1, este mes, inicio temporada, <8 semanas)
+4. **Perfil de tomador de decisiones (20 puntos)**: Título incluye: CEO, Director, Gerente, Responsable de Compras, Jefe de Compras, Procurement, Supply Chain, Director de Operaciones
+5. **Requisitos de certificaciones de calidad (20 puntos)**: Mención de MSC, IFS, ISO 22000, trazabilidad u otras certificaciones del sector
+
+**Bonus sectores de alto valor (+10 puntos):**
+- Gran superficie
+- Cadena de hoteles
+- Distribuidor nacional
+- Exportador
+- Mayorista alimentación
 
 **Priorización:**
-- Lead A: score >= 80
-- Lead B: score >= 50
-- Lead C: score < 50
+- Lead A: score >= 80 (respuesta en 24h)
+- Lead B: score >= 50 (respuesta en 48h)
+- Lead C: score < 50 (evaluación caso por caso)
 
 ### 3.5 Validación y Esquemas
 
@@ -513,30 +528,30 @@ La arquitectura modular permite reutilizar agentes individuales en otros context
 
 ### 7.1 Procesamiento de Candidatura Exitosa
 
-**Input**: Email de candidato con curriculum vitae adjunto
+**Input**: Email de candidato para puesto de Capitán de Barco Pesquero
 
 **Flujo ejecutado**:
 1. Guardrails: Validación exitosa
 2. Intent Classifier: category="cv", confidence=0.95
-3. CV Extractor: Extracción de datos del candidato
-4. CV Matcher: match_score=85 para vacante "ENG-ML-01"
+3. CV Extractor: Extracción de datos del candidato (12 años experiencia, Capitán Marina Mercante, STCW)
+4. CV Matcher: match_score=88 para vacante "FLOTA-CAP-01"
 5. Draft HR Forward: Generación de briefing interno
 6. HR Forward Packager: Empaquetado final
 
-**Output**: Comunicación interna a RRHH con candidato potencial y score de 85%
+**Output**: Comunicación interna a RRHH con candidato potencial y score de 88%
 
 ### 7.2 Procesamiento de Lead Comercial Prioritario
 
-**Input**: Email de CTO de empresa tecnológica consultando por servicios de automatización
+**Input**: Email de Directora de Compras de cadena hotelera solicitando suministro de 120 ton/mes de pescado fresco con certificaciones IFS
 
 **Flujo ejecutado**:
 1. Guardrails: Validación exitosa
-2. Intent Classifier: category="sales", confidence=0.90
-3. Sales Extractor: lead_score=90, priority="A"
+2. Intent Classifier: category="sales", confidence=0.92
+3. Sales Extractor: lead_score=95, priority="A" (volumen alto + certificaciones + decision maker)
 4. Draft Sales Forward: Generación de briefing comercial
 5. Sales Packager: Empaquetado final
 
-**Output**: Briefing ejecutivo para equipo de ventas con lead prioritario A
+**Output**: Briefing ejecutivo para equipo comercial con lead prioritario A
 
 ### 7.3 Bloqueo por Guardrails
 
@@ -550,30 +565,31 @@ La arquitectura modular permite reutilizar agentes individuales en otros context
 
 ### 7.4 Procesamiento de Currículum desde PDF
 
-**Input**: Archivo PDF con currículum vitae del candidato
+**Input**: Archivo PDF con currículum vitae de Técnico de Calidad Alimentaria
 
 **Flujo ejecutado**:
 1. Archivo PDF codificado en base64
 2. Mensaje multi-modal creado con PDF y consulta de extracción
 3. Guardrails: Validación exitosa del contenido extraído
-4. Intent Classifier: category="cv", confidence=0.92
-5. CV Extractor: Extracción de datos estructurados desde el PDF
-6. CV Matcher: Evaluación contra vacantes disponibles
-7. Generación de respuesta apropiada según match
+4. Intent Classifier: category="cv", confidence=0.93
+5. CV Extractor: Extracción de datos estructurados (certificaciones ISO 22000, HACCP, auditor IFS)
+6. CV Matcher: match_score=82 para vacante "QUAL-TEC-01"
+7. Generación de respuesta de forward a departamento de Calidad
 
 **Output**: Procesamiento completo del CV sin necesidad de extracción manual o bibliotecas OCR
 
 ### 7.5 Análisis de Lead desde Captura de Pantalla
 
-**Input**: Imagen PNG con captura de correo electrónico de prospecto comercial
+**Input**: Imagen PNG con captura de correo electrónico de prospecto comercial (distribuidor mayorista)
 
 **Flujo ejecutado**:
 1. Imagen codificada en base64
 2. Mensaje multi-modal creado con imagen y consulta de extracción
 3. Guardrails: Validación exitosa
-4. Intent Classifier: category="sales", confidence=0.88
-5. Sales Extractor: Extracción de información del lead desde la imagen
-6. Calificación y generación de briefing comercial
+4. Intent Classifier: category="sales", confidence=0.89
+5. Sales Extractor: Extracción de información del lead desde la imagen (volumen 50 ton/mes)
+6. Calificación lead_score=75, priority="B"
+7. Generación de briefing comercial
 
 **Output**: Lead cualificado extraído directamente de la captura de pantalla
 
