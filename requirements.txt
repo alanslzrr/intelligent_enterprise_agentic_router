@@ -1,0 +1,10 @@
+# Sistema Automatizado de Routing y Clasificación de Comunicaciones
+# Dependencias del proyecto
+
+# Framework de agentes y procesamiento
+openai-agents[viz]>=0.2.8
+pydantic>=2.0.0
+python-dotenv>=1.0.0
+
+# Visualización de arquitectura
+graphviz>=0.20.0
